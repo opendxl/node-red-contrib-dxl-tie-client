@@ -1,0 +1,37 @@
+[
+    {
+        "id": "150e9f23.5fee91",
+        "type": "tab",
+        "label": "TIE Detection Event Example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "746e38cf.241b3",
+        "type": "dxl-tie-file-detection in",
+        "z": "150e9f23.5fee91",
+        "name": "Receive TIE file detection event",
+        "client": "",
+        "x": 150,
+        "y": 35,
+        "wires": [
+            [
+                "f793bef9.a6924"
+            ]
+        ]
+    },
+    {
+        "id": "f793bef9.a6924",
+        "type": "debug",
+        "z": "150e9f23.5fee91",
+        "name": "Output event payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 420,
+        "y": 35,
+        "wires": []
+    }
+]

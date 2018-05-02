@@ -1,0 +1,51 @@
+[
+    {
+        "id": "ad03f39.6647f1",
+        "type": "tab",
+        "label": "TIE Reputation Change Event Example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "2f331319.d68c0c",
+        "type": "dxl-tie-file-reputation-change in",
+        "z": "ad03f39.6647f1",
+        "name": "Receive TIE file reputation change event",
+        "client": "",
+        "x": 179,
+        "y": 36,
+        "wires": [
+            [
+                "f046a377.306168"
+            ]
+        ]
+    },
+    {
+        "id": "ceaa9689.37507",
+        "type": "dxl-tie-certificate-reputation-change in",
+        "z": "ad03f39.6647f1",
+        "name": "Receive TIE cert reputation change event",
+        "client": "",
+        "x": 180,
+        "y": 95,
+        "wires": [
+            [
+                "f046a377.306168"
+            ]
+        ]
+    },
+    {
+        "id": "f046a377.306168",
+        "type": "debug",
+        "z": "ad03f39.6647f1",
+        "name": "Output event payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 481,
+        "y": 55,
+        "wires": []
+    }
+]

@@ -1,0 +1,73 @@
+[
+    {
+        "id": "3bcc7fab.13ad18",
+        "type": "tab",
+        "label": "TIE Set Certificate Reputation Example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "8e5d6753.96fb7",
+        "type": "dxl-tie-set-certificate-reputation",
+        "z": "3bcc7fab.13ad18",
+        "name": "Set reputation in TIE",
+        "client": "",
+        "x": 520,
+        "y": 36,
+        "wires": [
+            [
+                "bb1e6b9f.ba2e68"
+            ]
+        ]
+    },
+    {
+        "id": "5e4604d8.f8c704",
+        "type": "inject",
+        "z": "3bcc7fab.13ad18",
+        "name": "Set cert SHA1",
+        "topic": "",
+        "payload": "6eae26db8c13182a7947982991b4321732cc3de2",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 115,
+        "y": 36,
+        "wires": [
+            [
+                "656ef0c7.3ff768"
+            ]
+        ]
+    },
+    {
+        "id": "656ef0c7.3ff768",
+        "type": "function",
+        "z": "3bcc7fab.13ad18",
+        "name": "Set cert parameters",
+        "func": "msg.trustLevel = 99\nmsg.publicKeySha1 = '3b87a2d6f39770160364b79a152fcc73bae27adf'\nmsg.comment = 'Reputation set via OpenDXL'\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 36,
+        "wires": [
+            [
+                "8e5d6753.96fb7"
+            ]
+        ]
+    },
+    {
+        "id": "bb1e6b9f.ba2e68",
+        "type": "debug",
+        "z": "3bcc7fab.13ad18",
+        "name": "Output result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 709,
+        "y": 36,
+        "wires": []
+    }
+]

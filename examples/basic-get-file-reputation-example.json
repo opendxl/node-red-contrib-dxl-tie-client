@@ -1,0 +1,77 @@
+[
+    {
+        "id": "21c8680a.a57db",
+        "type": "tab",
+        "label": "TIE Get File Reputation Example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d9e9a653.729b88",
+        "type": "dxl-tie-get-file-reputation",
+        "z": "21c8680a.a57db",
+        "name": "Get reputation from TIE",
+        "client": "",
+        "x": 430,
+        "y": 55,
+        "wires": [
+            [
+                "e42f7705.b10548"
+            ]
+        ]
+    },
+    {
+        "id": "edb1ba42.dd3178",
+        "type": "inject",
+        "z": "21c8680a.a57db",
+        "name": "Set hashes for Notepad.exe",
+        "topic": "",
+        "payload": "{\"md5\":\"f2c7bb8acc97f92e987a2d4087d021b1\",\"sha1\":\"7eb0139d2175739b3ccb0d1110067820be6abd29\",\"sha256\":\"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 165,
+        "y": 35,
+        "wires": [
+            [
+                "d9e9a653.729b88"
+            ]
+        ]
+    },
+    {
+        "id": "e42f7705.b10548",
+        "type": "debug",
+        "z": "21c8680a.a57db",
+        "name": "Output reputation",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 650,
+        "y": 55,
+        "wires": []
+    },
+    {
+        "id": "61ee65e.2bfaa1c",
+        "type": "inject",
+        "z": "21c8680a.a57db",
+        "name": "Set hashes for EICAR",
+        "topic": "",
+        "payload": "{\"md5\":\"44d88612fea8a8f36de82e1278abb02f\",\"sha1\":\"3395856ce81f2b7382dee72602f798b642f14140\",\"sha256\":\"275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 146,
+        "y": 94,
+        "wires": [
+            [
+                "d9e9a653.729b88"
+            ]
+        ]
+    }
+]

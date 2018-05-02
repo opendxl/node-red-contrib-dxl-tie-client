@@ -1,0 +1,73 @@
+[
+    {
+        "id": "73888c4.b52f0f4",
+        "type": "tab",
+        "label": "TIE Set File Reputation Example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e43a0cf7.0a98b8",
+        "type": "dxl-tie-set-file-reputation",
+        "z": "73888c4.b52f0f4",
+        "name": "Set reputation in TIE",
+        "client": "",
+        "x": 508,
+        "y": 36,
+        "wires": [
+            [
+                "49f2c2f1.76bf64"
+            ]
+        ]
+    },
+    {
+        "id": "f42cc8e3.451318",
+        "type": "inject",
+        "z": "73888c4.b52f0f4",
+        "name": "Set hashes",
+        "topic": "",
+        "payload": "{\"md5\":\"f2c7bb8acc97f92e987a2d4087d021b1\",\"sha1\":\"7eb0139d2175739b3ccb0d1110067820be6abd29\",\"sha256\":\"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 115,
+        "y": 36,
+        "wires": [
+            [
+                "1df02dcb.d8bd7a"
+            ]
+        ]
+    },
+    {
+        "id": "1df02dcb.d8bd7a",
+        "type": "function",
+        "z": "73888c4.b52f0f4",
+        "name": "Set file parameters",
+        "func": "msg.trustLevel = 99\nmsg.fileName = 'notepad.exe'\nmsg.comment = 'Reputation set via OpenDXL'\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 36,
+        "wires": [
+            [
+                "e43a0cf7.0a98b8"
+            ]
+        ]
+    },
+    {
+        "id": "49f2c2f1.76bf64",
+        "type": "debug",
+        "z": "73888c4.b52f0f4",
+        "name": "Output result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 709,
+        "y": 36,
+        "wires": []
+    }
+]

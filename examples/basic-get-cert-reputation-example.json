@@ -1,0 +1,73 @@
+[
+    {
+        "id": "8d2e9513.6e1cb",
+        "type": "tab",
+        "label": "TIE Get Certificate Reputation Example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "d642af11.d83278",
+        "type": "dxl-tie-get-certificate-reputation",
+        "z": "8d2e9513.6e1cb",
+        "name": "Get reputation from TIE",
+        "client": "",
+        "x": 549,
+        "y": 36,
+        "wires": [
+            [
+                "25a1cd9b.b75a2a"
+            ]
+        ]
+    },
+    {
+        "id": "e29d2b00.776e6",
+        "type": "inject",
+        "z": "8d2e9513.6e1cb",
+        "name": "Set cert SHA1",
+        "topic": "",
+        "payload": "6eae26db8c13182a7947982991b4321732cc3de2",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 115,
+        "y": 36,
+        "wires": [
+            [
+                "85d58c0d.34b768"
+            ]
+        ]
+    },
+    {
+        "id": "85d58c0d.34b768",
+        "type": "function",
+        "z": "8d2e9513.6e1cb",
+        "name": "Set cert public key SHA1",
+        "func": "msg.publicKeySha1 = '3b87a2d6f39770160364b79a152fcc73bae27adf'\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 36,
+        "wires": [
+            [
+                "d642af11.d83278"
+            ]
+        ]
+    },
+    {
+        "id": "25a1cd9b.b75a2a",
+        "type": "debug",
+        "z": "8d2e9513.6e1cb",
+        "name": "Output reputation",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 768,
+        "y": 36,
+        "wires": []
+    }
+]
