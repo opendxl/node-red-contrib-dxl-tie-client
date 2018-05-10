@@ -1,29 +1,30 @@
 [
     {
-        "id": "8d2e9513.6e1cb",
+        "id": "8f92ab11.fd1818",
         "type": "tab",
         "label": "TIE Get Certificate Reputation Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "d642af11.d83278",
+        "id": "c1699641.b86798",
         "type": "dxl-tie-get-certificate-reputation",
-        "z": "8d2e9513.6e1cb",
+        "z": "8f92ab11.fd1818",
         "name": "Get reputation from TIE",
         "client": "",
-        "x": 549,
-        "y": 36,
+        "returnType": "obj",
+        "x": 550,
+        "y": 40,
         "wires": [
             [
-                "25a1cd9b.b75a2a"
+                "d9af767d.3df538"
             ]
         ]
     },
     {
-        "id": "e29d2b00.776e6",
+        "id": "ca2ea132.74562",
         "type": "inject",
-        "z": "8d2e9513.6e1cb",
+        "z": "8f92ab11.fd1818",
         "name": "Set cert SHA1",
         "topic": "",
         "payload": "6eae26db8c13182a7947982991b4321732cc3de2",
@@ -32,42 +33,42 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 115,
-        "y": 36,
+        "x": 110,
+        "y": 40,
         "wires": [
             [
-                "85d58c0d.34b768"
+                "e5fdd645.9c2438"
             ]
         ]
     },
     {
-        "id": "85d58c0d.34b768",
+        "id": "e5fdd645.9c2438",
         "type": "function",
-        "z": "8d2e9513.6e1cb",
+        "z": "8f92ab11.fd1818",
         "name": "Set cert public key SHA1",
         "func": "msg.publicKeySha1 = '3b87a2d6f39770160364b79a152fcc73bae27adf'\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "x": 310,
-        "y": 36,
+        "y": 40,
         "wires": [
             [
-                "d642af11.d83278"
+                "c1699641.b86798"
             ]
         ]
     },
     {
-        "id": "25a1cd9b.b75a2a",
+        "id": "d9af767d.3df538",
         "type": "debug",
-        "z": "8d2e9513.6e1cb",
+        "z": "8f92ab11.fd1818",
         "name": "Output reputation",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 768,
-        "y": 36,
+        "x": 770,
+        "y": 40,
         "wires": []
     }
 ]

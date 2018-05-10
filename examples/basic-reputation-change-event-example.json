@@ -1,51 +1,53 @@
 [
     {
-        "id": "ad03f39.6647f1",
+        "id": "e0b83fd8.c5817",
         "type": "tab",
         "label": "TIE Reputation Change Event Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "2f331319.d68c0c",
+        "id": "c20f4d01.73074",
         "type": "dxl-tie-file-reputation-change in",
-        "z": "ad03f39.6647f1",
+        "z": "e0b83fd8.c5817",
         "name": "Receive TIE file reputation change event",
         "client": "",
-        "x": 179,
-        "y": 36,
+        "payloadType": "obj",
+        "x": 180,
+        "y": 40,
         "wires": [
             [
-                "f046a377.306168"
+                "be00b774.9d4318"
             ]
         ]
     },
     {
-        "id": "ceaa9689.37507",
+        "id": "b42f7363.5cbf5",
         "type": "dxl-tie-certificate-reputation-change in",
-        "z": "ad03f39.6647f1",
+        "z": "e0b83fd8.c5817",
         "name": "Receive TIE cert reputation change event",
         "client": "",
+        "payloadType": "obj",
         "x": 180,
-        "y": 95,
+        "y": 100,
         "wires": [
             [
-                "f046a377.306168"
+                "be00b774.9d4318"
             ]
         ]
     },
     {
-        "id": "f046a377.306168",
+        "id": "be00b774.9d4318",
         "type": "debug",
-        "z": "ad03f39.6647f1",
+        "z": "e0b83fd8.c5817",
         "name": "Output event payload",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 481,
-        "y": 55,
+        "x": 480,
+        "y": 60,
         "wires": []
     }
 ]

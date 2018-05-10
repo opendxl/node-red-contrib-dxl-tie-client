@@ -1,29 +1,29 @@
 [
     {
-        "id": "3bcc7fab.13ad18",
+        "id": "1f2d267c.f71a6a",
         "type": "tab",
         "label": "TIE Set Certificate Reputation Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "8e5d6753.96fb7",
+        "id": "82293594.3a2838",
         "type": "dxl-tie-set-certificate-reputation",
-        "z": "3bcc7fab.13ad18",
+        "z": "1f2d267c.f71a6a",
         "name": "Set reputation in TIE",
         "client": "",
-        "x": 520,
-        "y": 36,
+        "x": 500,
+        "y": 40,
         "wires": [
             [
-                "bb1e6b9f.ba2e68"
+                "2c8205dc.fb99ba"
             ]
         ]
     },
     {
-        "id": "5e4604d8.f8c704",
+        "id": "3617f646.de930a",
         "type": "inject",
-        "z": "3bcc7fab.13ad18",
+        "z": "1f2d267c.f71a6a",
         "name": "Set cert SHA1",
         "topic": "",
         "payload": "6eae26db8c13182a7947982991b4321732cc3de2",
@@ -32,42 +32,42 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 115,
-        "y": 36,
+        "x": 110,
+        "y": 40,
         "wires": [
             [
-                "656ef0c7.3ff768"
+                "956ef438.b6a048"
             ]
         ]
     },
     {
-        "id": "656ef0c7.3ff768",
+        "id": "956ef438.b6a048",
         "type": "function",
-        "z": "3bcc7fab.13ad18",
+        "z": "1f2d267c.f71a6a",
         "name": "Set cert parameters",
         "func": "msg.trustLevel = 99\nmsg.publicKeySha1 = '3b87a2d6f39770160364b79a152fcc73bae27adf'\nmsg.comment = 'Reputation set via OpenDXL'\nreturn msg",
         "outputs": 1,
         "noerr": 0,
-        "x": 300,
-        "y": 36,
+        "x": 290,
+        "y": 40,
         "wires": [
             [
-                "8e5d6753.96fb7"
+                "82293594.3a2838"
             ]
         ]
     },
     {
-        "id": "bb1e6b9f.ba2e68",
+        "id": "2c8205dc.fb99ba",
         "type": "debug",
-        "z": "3bcc7fab.13ad18",
+        "z": "1f2d267c.f71a6a",
         "name": "Output result",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 709,
-        "y": 36,
+        "x": 690,
+        "y": 40,
         "wires": []
     }
 ]

@@ -1,29 +1,30 @@
 [
     {
-        "id": "21c8680a.a57db",
+        "id": "f2d50ad6.508878",
         "type": "tab",
         "label": "TIE Get File Reputation Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "d9e9a653.729b88",
+        "id": "e7369704.4b8368",
         "type": "dxl-tie-get-file-reputation",
-        "z": "21c8680a.a57db",
+        "z": "f2d50ad6.508878",
         "name": "Get reputation from TIE",
         "client": "",
+        "returnType": "obj",
         "x": 430,
-        "y": 55,
+        "y": 60,
         "wires": [
             [
-                "e42f7705.b10548"
+                "9cb89222.1ae39"
             ]
         ]
     },
     {
-        "id": "edb1ba42.dd3178",
+        "id": "5797a2c6.c88e1c",
         "type": "inject",
-        "z": "21c8680a.a57db",
+        "z": "f2d50ad6.508878",
         "name": "Set hashes for Notepad.exe",
         "topic": "",
         "payload": "{\"md5\":\"f2c7bb8acc97f92e987a2d4087d021b1\",\"sha1\":\"7eb0139d2175739b3ccb0d1110067820be6abd29\",\"sha256\":\"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"}",
@@ -32,18 +33,18 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 165,
-        "y": 35,
+        "x": 160,
+        "y": 40,
         "wires": [
             [
-                "d9e9a653.729b88"
+                "e7369704.4b8368"
             ]
         ]
     },
     {
-        "id": "e42f7705.b10548",
+        "id": "9cb89222.1ae39",
         "type": "debug",
-        "z": "21c8680a.a57db",
+        "z": "f2d50ad6.508878",
         "name": "Output reputation",
         "active": true,
         "tosidebar": true,
@@ -51,13 +52,13 @@
         "tostatus": false,
         "complete": "payload",
         "x": 650,
-        "y": 55,
+        "y": 60,
         "wires": []
     },
     {
-        "id": "61ee65e.2bfaa1c",
+        "id": "5e69b05a.4c3ae",
         "type": "inject",
-        "z": "21c8680a.a57db",
+        "z": "f2d50ad6.508878",
         "name": "Set hashes for EICAR",
         "topic": "",
         "payload": "{\"md5\":\"44d88612fea8a8f36de82e1278abb02f\",\"sha1\":\"3395856ce81f2b7382dee72602f798b642f14140\",\"sha256\":\"275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f\"}",
@@ -66,11 +67,11 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 146,
-        "y": 94,
+        "x": 140,
+        "y": 100,
         "wires": [
             [
-                "d9e9a653.729b88"
+                "e7369704.4b8368"
             ]
         ]
     }

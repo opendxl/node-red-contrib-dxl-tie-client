@@ -1,5 +1,6 @@
 'use strict'
 
+var MessageUtils = require('@opendxl/node-red-contrib-dxl').MessageUtils
 var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
 var Util = require('../lib/util')
@@ -14,6 +15,8 @@ module.exports = function (RED) {
      * @private
      */
     this._client = RED.nodes.getNode(nodeConfig.client)
+
+    this._returnType = nodeConfig.returnType || 'obj'
 
     var node = this
 
@@ -32,7 +35,8 @@ module.exports = function (RED) {
           tieClient.getCertificateReputation(
             function (error, reputations) {
               if (reputations) {
-                msg.payload = reputations
+                msg.payload = MessageUtils.objectToReturnType(reputations,
+                  node._returnType)
                 node.send(msg)
               } else {
                 node.error(error.message, msg)

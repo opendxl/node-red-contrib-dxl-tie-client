@@ -1,29 +1,30 @@
 [
     {
-        "id": "da8120f4.1bf078",
+        "id": "bc55c199.1e1ef",
         "type": "tab",
         "label": "TIE First Instance Event Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "c8128c85.1c40b8",
+        "id": "9bac3d23.ee18",
         "type": "dxl-tie-file-first-instance in",
-        "z": "da8120f4.1bf078",
+        "z": "bc55c199.1e1ef",
         "name": "Receive TIE file first instance event",
         "client": "",
+        "payloadType": "obj",
         "x": 160,
-        "y": 35,
+        "y": 40,
         "wires": [
             [
-                "6365690d.f3fe1"
+                "acea1288.057c9"
             ]
         ]
     },
     {
-        "id": "6365690d.f3fe1",
+        "id": "acea1288.057c9",
         "type": "debug",
-        "z": "da8120f4.1bf078",
+        "z": "bc55c199.1e1ef",
         "name": "Output event payload",
         "active": true,
         "tosidebar": true,
@@ -31,7 +32,7 @@
         "tostatus": false,
         "complete": "payload",
         "x": 420,
-        "y": 35,
+        "y": 40,
         "wires": []
     }
 ]

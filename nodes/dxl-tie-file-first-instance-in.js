@@ -1,5 +1,6 @@
 'use strict'
 
+var MessageUtils = require('@opendxl/node-red-contrib-dxl').MessageUtils
 var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
 
@@ -14,6 +15,8 @@ module.exports = function (RED) {
      */
     this._client = RED.nodes.getNode(nodeConfig.client)
 
+    this._payloadType = nodeConfig.payloadType || 'obj'
+
     var node = this
 
     this.status({
@@ -26,7 +29,8 @@ module.exports = function (RED) {
       this._client.registerUserNode(this)
       var tieClient = new TieClient(this._client.dxlClient)
       var callback = function (firstInstanceObj) {
-        var msg = {payload: firstInstanceObj}
+        var msg = {payload: MessageUtils.objectToReturnType(firstInstanceObj,
+          node._payloadType)}
         node.send(msg)
       }
       tieClient.addFileFirstInstanceCallback(callback)
