@@ -6,7 +6,9 @@
       client: {type: 'dxl-client',
         required: false,
         validate: function () { return DXL.validators.client(this) }
-      }
+      },
+      trustLevel: {value: ''},
+      comment: {value: ''}
     },
     color: '#e9e9e9',
     inputs: 1,
@@ -30,6 +32,25 @@
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-trustLevel"><i class="fa fa-user-secret"></i> Trust level</label>
+        <select type="text" id="node-input-trustLevel" style="width:70%;">
+            <option value="">Defer to msg.trustLevel property</option>
+            <option value="100">Known trusted installer</option>
+            <option value="99">Known trusted</option>
+            <option value="85">Most likely trusted</option>
+            <option value="70">Might be trusted</option>
+            <option value="50">Unknown</option>
+            <option value="30">Might be malicious</option>
+            <option value="15">Most likely malicious</option>
+            <option value="1">Known malicious</option>
+            <option value="0">Not set</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-comment"><i class="fa fa-comment"></i> Comment</label>
+        <input type="text" id="node-input-comment" placeholder="Comment">
     </div>
 </script>
 

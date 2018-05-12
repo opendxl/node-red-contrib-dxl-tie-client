@@ -1,6 +1,8 @@
 'use strict'
 
-var MessageUtils = require('@opendxl/node-red-contrib-dxl').MessageUtils
+var nodeRedDxl = require('@opendxl/node-red-contrib-dxl')
+var MessageUtils = nodeRedDxl.MessageUtils
+var NodeUtils = nodeRedDxl.NodeUtils
 var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
 var Util = require('../lib/util')
@@ -31,7 +33,8 @@ module.exports = function (RED) {
       var tieClient = new TieClient(this._client.dxlClient)
       this.on('input', function (msg) {
         if (msg.payload) {
-          var queryLimit = Util.popKey(msg, 'queryLimit')
+          var queryLimit = NodeUtils.valueToNumber(
+            nodeConfig.queryLimit, Util.popKey(msg, 'queryLimit'))
           tieClient.getFileFirstReferences(
             function (error, reputations) {
               if (reputations) {

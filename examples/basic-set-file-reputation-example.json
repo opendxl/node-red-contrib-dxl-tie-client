@@ -1,29 +1,31 @@
 [
     {
-        "id": "31c01977.80f396",
+        "id": "fb1213a5.c7aa6",
         "type": "tab",
         "label": "TIE Set File Reputation Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "96fca96.e1a8358",
+        "id": "64d301fb.643ca",
         "type": "dxl-tie-set-file-reputation",
-        "z": "31c01977.80f396",
+        "z": "fb1213a5.c7aa6",
         "name": "Set reputation in TIE",
         "client": "",
-        "x": 480,
+        "trustLevel": "99",
+        "comment": "Reputation set by OpenDXL",
+        "x": 440,
         "y": 40,
         "wires": [
             [
-                "36001624.2dc82a"
+                "90e4149a.6b3208"
             ]
         ]
     },
     {
-        "id": "3e7498d8.03ddf8",
+        "id": "b29ed065.9113",
         "type": "inject",
-        "z": "31c01977.80f396",
+        "z": "fb1213a5.c7aa6",
         "name": "Set hashes",
         "topic": "",
         "payload": "{\"md5\":\"f2c7bb8acc97f92e987a2d4087d021b1\",\"sha1\":\"7eb0139d2175739b3ccb0d1110067820be6abd29\",\"sha256\":\"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"}",
@@ -36,38 +38,49 @@
         "y": 40,
         "wires": [
             [
-                "8288aa63.a6c168"
+                "d5eb214b.ed0cc"
             ]
         ]
     },
     {
-        "id": "8288aa63.a6c168",
-        "type": "function",
-        "z": "31c01977.80f396",
-        "name": "Set file parameters",
-        "func": "msg.trustLevel = 99\nmsg.fileName = 'notepad.exe'\nmsg.comment = 'Reputation set via OpenDXL'\nreturn msg",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 270,
-        "y": 40,
-        "wires": [
-            [
-                "96fca96.e1a8358"
-            ]
-        ]
-    },
-    {
-        "id": "36001624.2dc82a",
+        "id": "90e4149a.6b3208",
         "type": "debug",
-        "z": "31c01977.80f396",
+        "z": "fb1213a5.c7aa6",
         "name": "Output result",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 670,
+        "x": 630,
         "y": 40,
         "wires": []
+    },
+    {
+        "id": "d5eb214b.ed0cc",
+        "type": "change",
+        "z": "fb1213a5.c7aa6",
+        "name": "Set file name",
+        "rules": [
+            {
+                "t": "set",
+                "p": "fileName",
+                "pt": "msg",
+                "to": "notepad.exe",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 40,
+        "wires": [
+            [
+                "64d301fb.643ca"
+            ]
+        ]
     }
 ]
