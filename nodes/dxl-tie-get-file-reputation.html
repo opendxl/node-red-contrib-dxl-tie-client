@@ -43,5 +43,55 @@
 </script>
 
 <script type="text/x-red" data-help-name="dxl-tie-get-file-reputation">
-    <p>TBD</p>
+    <p>Retrieves from TIE the reputations for the specified file (as identified by hashes).</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+       <dt>payload <span class="property-type">object</span></dt>
+       <dd> An object of hashes that identify the file to lookup. Each property name in the object is the <code>hash type</code> and the associated value is the hex representation of the hash value. See the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.HashType" target="_blank">HashType documentation</a> in the TIE Python client SDK for the list of hash type constants.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+       <dt>payload <span class="property-type">string | object | buffer</span></dt>
+       <dd> An object where each <code>value</code> is a reputation from a particular reputation provider which is identified by the <code>key</code>.
+       The list of file reputation providers can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FileProvider" target="_blank">FileProvider documentation</a> in the TIE Python client SDK.
+       Through the <i>Return</i> node property, the node can be configured to set the payload type as a UTF-8 String, an Object parsed from a JSON formatted string, or as a binary Buffer.</dd>
+    </dl>
+    <h3>Node Properties</h3>
+    <p><i>Client</i> is the configuration node for the DXL client through which the request should be made.
+    Click on the pencil icon to add or modify a client configuration.</p>
+    <p><i>Name</i> is only used for display purposes in the Node-RED user interface.</p>
+    <p><i>Return</i> controls the data type for the <code>msg.payload</code> property in the output message.</p>
+    <p>If an error occurs when attempting to convert the payload into the desired data type, the current flow is halted with an error.</p>
+    <h3>Details</h3>
+    <p>An example reputations return payload is shown below:</p>
+    <pre>{
+    "1": {
+        "attributes": {
+            "2120340": "2139160704"
+        },
+        "createDate": 1480455704,
+        "providerId": 1,
+        "trustLevel": 99
+    },
+    "3": {
+        "attributes": {
+            "2101652": "52",
+            "2102165": "1476902802",
+            "2111893": "56",
+            "2114965": "1",
+            "2139285": "73183493944770750"
+        },
+        "createDate": 1476902802,
+        "providerId": 3,
+        "trustLevel": 99
+    }
+}</pre>
+    <p>The <code>1</code> key corresponds to a reputation from the "Global Threat Intelligence (GTI)" reputation provider while the <code>3</code> key corresponds to a reputation from the "Enterprise" reputation provider.
+    <p>Each reputation contains a standard set of properties (trust level, creation date, etc.). These properties are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FileReputationProp" target="_blank">FileReputationProp documentation</a> in the TIE Python client SDK.</p>
+    <p>Each reputation can also contain a provider-specific set of attributes, as an object. These attributes can be found in the TIE Python client SDK documentation:</p>
+    <ul>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FileEnterpriseAttrib" target="_blank">FileEnterpriseAttrib</a> - Attributes associated with the <code>Enterprise</code> reputation provider for files</li>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FileGtiAttrib" target="_blank">FileGtiAttrib</a> - Attributes associated with the <code>Global Threat Intelligence (GTI)</code> reputation provider for files</li>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.AtdAttrib" target="_blank">AtdAttrib</a> - Attributes associated with the <code>Advanced Threat Defense (ATD)</code> reputation provider</li>
+    </ul>
 </script>

@@ -43,5 +43,94 @@
 </script>
 
 <script type="text/x-red" data-help-name="dxl-tie-certificate-reputation-change in">
-    <p>TBD</p>
+    <p>Subscribes for certificate reputation change events that TIE sends through the DXL fabric.</p>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">string | object | buffer</span></dt>
+        <dd> The payload of the certificate reputation change event. Through the <i>Payload type</i> node property, the node can be configured to set the event payload as a UTF-8 String, an Object parsed from a JSON formatted string, or as a binary Buffer.</dd>
+    </dl>
+    <h3>Node Properties</h3>
+    <p><i>Client</i> is the configuration node for the DXL client through which the request should be made.
+    Click on the pencil icon to add or modify a client configuration.</p>
+    <p><i>Name</i> is only used for display purposes in the Node-RED user interface.</p>
+    <p><i>Payload type</i> controls the data type for the <code>msg.payload</code> property in the new message injected into a flow.
+    If an error occurs when attempting to convert the binary Buffer of the payload into the desired data type, the current flow is halted with an error.</p>
+    <h3>Details</h3>
+    <p>An example reputation change object payload is shown below:</p>
+    <pre>{
+    "hashes": {
+        "md5": "f2c7bb8acc97f92e987a2d4087d021b1",
+        "sha1": "7eb0139d2175739b3ccb0d1110067820be6abd29",
+        "sha256": "142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2"
+    },
+    "newReputations": {
+        "1": {
+            "attributes": {
+                "2120340": "2139160704"
+            },
+            "createDate": 1480455704,
+            "providerId": 1,
+            "trustLevel": 99
+        },
+        "3": {
+            "attributes": {
+                "2101652": "235",
+                "2102165": "1476902802",
+                "2111893": "244",
+                "2114965": "4",
+                "2139285": "73183493944770750"
+            },
+            "createDate": 1476902802,
+            "providerId": 3,
+            "trustLevel": 99
+        }
+    },
+    "oldReputations": {
+        "1": {
+            "attributes": {
+                "2120340": "2139160704"
+            },
+            "createDate": 1480455704,
+            "providerId": 1,
+            "trustLevel": 99
+        },
+        "3": {
+            "attributes": {
+                "2101652": "235",
+                "2102165": "1476902802",
+                "2111893": "244",
+                "2114965": "4",
+                "2139285": "73183493944770750"
+            },
+            "createDate": 1476902802,
+            "providerId": 3,
+            "trustLevel": 85
+        }
+    },
+    "updateTime": 1481219581
+}</pre>
+    <p>The top level property names in the object are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertRepChangeEventProp" target="_blank">CertRepChangeEventProp documentation</a> in the TIE Python client SDK.</p>
+    <p>The reputation change information is separated into 4 distinct sections:</p>
+    <h4>Hash Values</h4>
+    <p>Keyed in the object by the <code>hashes</code> string.</p>
+    <p>An object of hashes that identify the certificate whose reputation has changed. The property in the object is the <code>hash type</code> and the <code>value</code> is the hex representation of the hash value. See the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.HashType" target="_blank">HashType documentation</a> in the TIE Python client SDK for the list of hash type constants.</p>
+    <p>There may also be a top-level property named <code>publicKeySha1</code> that contains the SHA-1 of the certificate's public key.</p>
+    <h4>New Reputations</h4>
+    <p>Keyed in the object by the <code>newReputations</code> string.</p>
+    <p>The new reputations for the certificate whose reputation has changed, as an object.</p>
+    <p>The property for each entry in the object corresponds to a particular
+    <code>provider</code> of the associated reputation. The list of certificate reputation providers can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertProvider" target="_blank">CertProvider documentation</a> in the TIE Python client SDK.</p>
+    <p>Each reputation contains a standard set of properties (trust level, creation date, etc.). These properties are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertReputationProp" target="_blank">CertReputationProp documentation</a> in the TIE Python client SDK.</p>
+    <p>Each reputation can also contain a provider-specific set of attributes, as an object. These attributes can be found in the TIE Python client SDK documentation:</p>
+    <ul>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertEnterpriseAttrib" target="_blank">CertEnterpriseAttrib</a> - Attributes associated with the <code>Enterprise</code> reputation provider for certificates</li>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertGtiAttrib" target="_blank">CertGtiAttrib</a> - Attributes associated with the <code>Global Threat Intelligence (GTI)</code> reputation provider for certificates</li>
+    </ul>
+    <h4>Old Reputations</h4>
+    <p>Keyed in the object by the <code>oldReputations</code> string.</p>
+    <p>The previous reputations for the certificate whose reputation has changed, as an object.</p>
+    <p>See the <code>New Reputations</code> section above for additional information regarding reputation details.</p>
+    <h4>Change time</h4>
+    <p>Keyed in the object by the <code>updateTime</code> string.</p>
+    <p>The time the reputation change occurred (Epoch time).</p>
 </script>

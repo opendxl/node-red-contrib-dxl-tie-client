@@ -52,8 +52,34 @@
         <label for="node-input-comment"><i class="fa fa-comment"></i> Comment</label>
         <input type="text" id="node-input-comment" placeholder="Comment">
     </div>
+    <div class="form-tips">Tip: Leave comment blank if you want to set it via the <code>msg.comment</code> property</div>
 </script>
 
 <script type="text/x-red" data-help-name="dxl-tie-set-file-reputation">
-    <p>TBD</p>
+    <p>Sets the "Enterprise" reputation trust level of a specified file (as identified by hashes).</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+     <dt>payload <span class="property-type">object</span></dt>
+       <dd> An object of hashes that identify the file to lookup. Each property name in the object is the <code>hash type</code> and the associated value is the hex representation of the hash value. See the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.HashType" target="_blank">HashType documentation</a> in the TIE Python client SDK for the list of hash type constants.</dd>
+       <dt class="optional">trustLevel <span class="property-type">number</span></dt>
+       <dd> The new "trust level" for the file. The list of standard "trust levels" can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.TrustLevel" target="_blank">TrustLevel documentation</a> in the TIE Python client SDK.</dd>
+       <dt class="optional">fileName<span class="property-type">string</span></dt>
+       <dd> A name to associate with the file.</dd>
+       <dt class="optional">comment <span class="property-type">string</span></dt>
+       <dd> A comment to associate with the file.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+       <dt>payload <span class="property-type">string</span></dt>
+       <dd> Assuming the reputation can be set, this property will have a text string value of "Succeeded".</dd>
+    </dl>
+    <h3>Prerequisites</h3>
+    <p>The DXL client invoking this method must have permission to send messages to the <code>/mcafee/service/tie/file/reputation/set</code> topic which is part of the <code>TIE Server Set Enterprise Reputation</code> authorization group.</p>
+    <p>The <a href="https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html">MAR client authorization documentation</a> provides an example of authorizing a DXL client to send messages to an authorization group. While the example is based on McAfee Active Response (MAR), the instructions are the same with the exception of swapping the <code>TIE Server Set Enterprise Reputation</code> authorization group in place of <code>Active Response Server API</code>.</p>
+    <h3>Node Properties</h3>
+    <p><i>Client</i> is the configuration node for the DXL client through which the request should be made.
+    Click on the pencil icon to add or modify a client configuration.</p>
+    <p><i>Name</i> is only used for display purposes in the Node-RED user interface.</p>
+    <p><i>Trust level</i> is the new "trust level" for the file. If the value is set to <code>Defer to msg.trustLevel property</code>, the trust level will be retrieved from the <code>msg.trustLevel</code> property in the input message. If the trust level is not set either in the node or an input message property, the current flow is halted with an error.</p>
+    <p><i>Comment</i> is a comment to associate with the file. If the value is empty, the comment will be derived from the input message's <code>msg.comment</code> property.</p>
 </script>

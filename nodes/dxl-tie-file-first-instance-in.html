@@ -43,5 +43,33 @@
 </script>
 
 <script type="text/x-red" data-help-name="dxl-tie-file-first-instance in">
-    <p>TBD</p>
+    <p>Subscribes for first instance events that TIE sends through the DXL fabric for a file.</p>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">string | object | buffer</span></dt>
+        <dd> The payload of the first instance event. Through the <i>Payload type</i> node property, the node can be configured to set the event payload as a UTF-8 String, an Object parsed from a JSON formatted string, or as a binary Buffer.</dd>
+    </dl>
+    <h3>Node Properties</h3>
+    <p><i>Client</i> is the configuration node for the DXL client through which the request should be made.
+    Click on the pencil icon to add or modify a client configuration.</p>
+    <p><i>Name</i> is only used for display purposes in the Node-RED user interface.</p>
+    <p><i>Payload type</i> controls the data type for the <code>msg.payload</code> property in the new message injected into a flow.
+    If an error occurs when attempting to convert the binary Buffer of the payload into the desired data type, the current flow is halted with an error.</p>
+    <h3>Details</h3>
+    <p>An example first instance object payload is shown below:</p>
+    <pre>{
+    "agentGuid": "{68125cd6-a5d8-11e6-348e-000c29663178}",
+    "hashes": {
+        "md5": "31dbe8cc443d2ca7fd236ac00a52fb17",
+        "sha1": "2d6ca45061b7972312e00e5933fdff95bb90b61b",
+        "sha256": "aa3c461d4c21a392e372d0d6ca4ceb1e4d88098d587659454eaf4d93c661880f"
+    },
+    "name": "MORPH.EXE"
+}</pre>
+    <p>The top level property names in the object are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FirstInstanceEventProp" target="_blank">FirstInstanceEventProp documentation</a> in the TIE Python client SDK.</p>
+    <p>The information provided in the object includes:</p>
+    <ul>
+        <li>System the first instance of the file was found on</li>
+        <li>File information (file name and associated hashes)</li>
+    </ul>
 </script>
