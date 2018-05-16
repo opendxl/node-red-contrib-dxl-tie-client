@@ -1,32 +1,46 @@
 [
     {
-        "id": "4f27eb02.3f6fd4",
+        "id": "51bf5407.88418c",
         "type": "tab",
         "label": "TIE Set Certificate Reputation Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "742d473f.1654c8",
+        "id": "f78cea1a.85ffa8",
         "type": "dxl-tie-set-certificate-reputation",
-        "z": "4f27eb02.3f6fd4",
+        "z": "51bf5407.88418c",
         "name": "Set reputation in TIE",
         "client": "",
         "trustLevel": "99",
         "comment": "Reputation set via OpenDXL",
-        "x": 540,
-        "y": 40,
+        "x": 320,
+        "y": 200,
         "wires": [
             [
-                "213c2b.769993d6"
+                "445f2e40.a91f2"
             ]
         ]
     },
     {
-        "id": "7980a90d.b34208",
+        "id": "445f2e40.a91f2",
+        "type": "debug",
+        "z": "51bf5407.88418c",
+        "name": "Output result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 510,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "61d0a18.ae6aa6",
         "type": "inject",
-        "z": "4f27eb02.3f6fd4",
-        "name": "Set cert hashes",
+        "z": "51bf5407.88418c",
+        "name": "Specify cert hashes",
         "topic": "",
         "payload": "{\"certBodySha1\":\"6eae26db8c13182a7947982991b4321732cc3de2\",\"publicKeySha1\":\"3b87a2d6f39770160364b79a152fcc73bae27adf\"}",
         "payloadType": "json",
@@ -34,46 +48,32 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 120,
+        "x": 130,
         "y": 40,
         "wires": [
             [
-                "523dc154.16232"
+                "db145b61.a22e68"
             ]
         ]
     },
     {
-        "id": "213c2b.769993d6",
-        "type": "debug",
-        "z": "4f27eb02.3f6fd4",
-        "name": "Output result",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "x": 730,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "523dc154.16232",
+        "id": "db145b61.a22e68",
         "type": "change",
-        "z": "4f27eb02.3f6fd4",
-        "name": "Set params for request",
+        "z": "51bf5407.88418c",
+        "name": "Set hash request parameters",
         "rules": [
+            {
+                "t": "set",
+                "p": "sha1",
+                "pt": "msg",
+                "to": "payload.certBodySha1",
+                "tot": "msg"
+            },
             {
                 "t": "set",
                 "p": "publicKeySha1",
                 "pt": "msg",
                 "to": "payload.publicKeySha1",
-                "tot": "msg"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload.certBodySha1",
                 "tot": "msg"
             }
         ],
@@ -82,11 +82,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 320,
-        "y": 40,
+        "x": 240,
+        "y": 120,
         "wires": [
             [
-                "742d473f.1654c8"
+                "f78cea1a.85ffa8"
             ]
         ]
     }

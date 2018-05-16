@@ -1,31 +1,31 @@
 [
     {
-        "id": "17bf45d2.b2df7a",
+        "id": "b5a0a1e7.eec7a",
         "type": "tab",
         "label": "TIE Get File First References Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "2437d2a5.fbd07e",
+        "id": "8d484a40.544cf8",
         "type": "dxl-tie-get-file-first-references",
-        "z": "17bf45d2.b2df7a",
+        "z": "b5a0a1e7.eec7a",
         "name": "Get first references from TIE",
         "client": "",
         "returnType": "obj",
-        "x": 440,
-        "y": 60,
+        "x": 300,
+        "y": 200,
         "wires": [
             [
-                "a68fd3ea.9e28e"
+                "7a822052.ab5d9"
             ]
         ]
     },
     {
-        "id": "cb787d80.12d8f",
+        "id": "daf0e7fa.0824b8",
         "type": "inject",
-        "z": "17bf45d2.b2df7a",
-        "name": "Set hashes for Notepad.exe",
+        "z": "b5a0a1e7.eec7a",
+        "name": "Specify hashes for Notepad.exe",
         "topic": "",
         "payload": "{\"md5\":\"f2c7bb8acc97f92e987a2d4087d021b1\",\"sha1\":\"7eb0139d2175739b3ccb0d1110067820be6abd29\",\"sha256\":\"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"}",
         "payloadType": "json",
@@ -33,33 +33,33 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 160,
+        "x": 170,
         "y": 40,
         "wires": [
             [
-                "2437d2a5.fbd07e"
+                "7a037663.ca19f8"
             ]
         ]
     },
     {
-        "id": "a68fd3ea.9e28e",
+        "id": "7a822052.ab5d9",
         "type": "debug",
-        "z": "17bf45d2.b2df7a",
+        "z": "b5a0a1e7.eec7a",
         "name": "Output first references",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 680,
-        "y": 60,
+        "x": 540,
+        "y": 200,
         "wires": []
     },
     {
-        "id": "7f307342.bc61fc",
+        "id": "e239278e.59c018",
         "type": "inject",
-        "z": "17bf45d2.b2df7a",
-        "name": "Set hashes for EICAR",
+        "z": "b5a0a1e7.eec7a",
+        "name": "Specify hashes for EICAR",
         "topic": "",
         "payload": "{\"md5\":\"44d88612fea8a8f36de82e1278abb02f\",\"sha1\":\"3395856ce81f2b7382dee72602f798b642f14140\",\"sha256\":\"275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f\"}",
         "payloadType": "json",
@@ -67,11 +67,38 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 140,
+        "x": 150,
         "y": 100,
         "wires": [
             [
-                "2437d2a5.fbd07e"
+                "7a037663.ca19f8"
+            ]
+        ]
+    },
+    {
+        "id": "7a037663.ca19f8",
+        "type": "change",
+        "z": "b5a0a1e7.eec7a",
+        "name": "Set hashes request parameter",
+        "rules": [
+            {
+                "t": "set",
+                "p": "hashes",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 80,
+        "wires": [
+            [
+                "8d484a40.544cf8"
             ]
         ]
     }

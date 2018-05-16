@@ -32,7 +32,8 @@ module.exports = function (RED) {
       this._client.registerUserNode(this)
       var tieClient = new TieClient(this._client.dxlClient)
       this.on('input', function (msg) {
-        if (msg.payload) {
+        var sha1 = Util.popKey(msg, 'sha1')
+        if (sha1) {
           var publicKeySha1 = Util.popKey(msg, 'publicKeySha1')
           var queryLimit = NodeUtils.valueToNumber(
             nodeConfig.queryLimit, Util.popKey(msg, 'queryLimit'))
@@ -46,12 +47,12 @@ module.exports = function (RED) {
                 node.error(error.message, msg)
               }
             },
-            msg.payload,
+            sha1,
             publicKeySha1,
             queryLimit
           )
         } else {
-          node.error('Certificate SHA1 not set in payload', msg)
+          node.error('sha1 property was not specified', msg)
         }
       })
       this.on('close', function (done) {

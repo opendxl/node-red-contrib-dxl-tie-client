@@ -28,11 +28,10 @@ module.exports = function (RED) {
       this._client.registerUserNode(this)
       var tieClient = new TieClient(this._client.dxlClient)
       this.on('input', function (msg) {
+        var sha1 = Util.popKey(msg, 'sha1')
         var trustLevel = NodeUtils.valueToNumber(nodeConfig.trustLevel,
           Util.popKey(msg, 'trustLevel'))
-        if (!msg.payload) {
-          node.error('Certificate SHA1 not set in payload', msg)
-        } else {
+        if (sha1) {
           var publicKeySha1 = Util.popKey(msg, 'publicKeySha1')
           var comment = NodeUtils.defaultIfEmpty(nodeConfig.comment,
             Util.popKey(msg, 'comment'))
@@ -46,10 +45,12 @@ module.exports = function (RED) {
               }
             },
             trustLevel,
-            msg.payload,
+            sha1,
             publicKeySha1,
             comment
           )
+        } else {
+          node.error('sha1 property was not specified', msg)
         }
       })
       this.on('close', function (done) {

@@ -1,74 +1,92 @@
 [
     {
-        "id": "8f92ab11.fd1818",
+        "id": "56a913fe.c0faec",
         "type": "tab",
         "label": "TIE Get Certificate Reputation Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "c1699641.b86798",
+        "id": "4668bae2.faa7c4",
         "type": "dxl-tie-get-certificate-reputation",
-        "z": "8f92ab11.fd1818",
+        "z": "56a913fe.c0faec",
         "name": "Get reputation from TIE",
         "client": "",
         "returnType": "obj",
-        "x": 550,
-        "y": 40,
+        "x": 330,
+        "y": 200,
         "wires": [
             [
-                "d9af767d.3df538"
+                "236c332.35ed5cc"
             ]
         ]
     },
     {
-        "id": "ca2ea132.74562",
-        "type": "inject",
-        "z": "8f92ab11.fd1818",
-        "name": "Set cert SHA1",
-        "topic": "",
-        "payload": "6eae26db8c13182a7947982991b4321732cc3de2",
-        "payloadType": "str",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 110,
-        "y": 40,
-        "wires": [
-            [
-                "e5fdd645.9c2438"
-            ]
-        ]
-    },
-    {
-        "id": "e5fdd645.9c2438",
-        "type": "function",
-        "z": "8f92ab11.fd1818",
-        "name": "Set cert public key SHA1",
-        "func": "msg.publicKeySha1 = '3b87a2d6f39770160364b79a152fcc73bae27adf'\nreturn msg",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 310,
-        "y": 40,
-        "wires": [
-            [
-                "c1699641.b86798"
-            ]
-        ]
-    },
-    {
-        "id": "d9af767d.3df538",
+        "id": "236c332.35ed5cc",
         "type": "debug",
-        "z": "8f92ab11.fd1818",
+        "z": "56a913fe.c0faec",
         "name": "Output reputation",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 770,
-        "y": 40,
+        "x": 550,
+        "y": 200,
         "wires": []
+    },
+    {
+        "id": "a933701a.48939",
+        "type": "inject",
+        "z": "56a913fe.c0faec",
+        "name": "Specify cert hashes",
+        "topic": "",
+        "payload": "{\"certBodySha1\":\"6eae26db8c13182a7947982991b4321732cc3de2\",\"publicKeySha1\":\"3b87a2d6f39770160364b79a152fcc73bae27adf\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "d76877f2.fa73a8"
+            ]
+        ]
+    },
+    {
+        "id": "d76877f2.fa73a8",
+        "type": "change",
+        "z": "56a913fe.c0faec",
+        "name": "Set hash request parameters",
+        "rules": [
+            {
+                "t": "set",
+                "p": "sha1",
+                "pt": "msg",
+                "to": "payload.certBodySha1",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "publicKeySha1",
+                "pt": "msg",
+                "to": "payload.publicKeySha1",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 120,
+        "wires": [
+            [
+                "4668bae2.faa7c4"
+            ]
+        ]
     }
 ]

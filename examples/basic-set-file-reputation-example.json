@@ -1,32 +1,32 @@
 [
     {
-        "id": "fb1213a5.c7aa6",
+        "id": "fd97a500.897e08",
         "type": "tab",
         "label": "TIE Set File Reputation Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "64d301fb.643ca",
+        "id": "adee8c75.f75d6",
         "type": "dxl-tie-set-file-reputation",
-        "z": "fb1213a5.c7aa6",
+        "z": "fd97a500.897e08",
         "name": "Set reputation in TIE",
         "client": "",
         "trustLevel": "99",
         "comment": "Reputation set by OpenDXL",
-        "x": 440,
-        "y": 40,
+        "x": 300,
+        "y": 220,
         "wires": [
             [
-                "90e4149a.6b3208"
+                "7263943c.85126c"
             ]
         ]
     },
     {
-        "id": "b29ed065.9113",
+        "id": "be71a71f.339e18",
         "type": "inject",
-        "z": "fb1213a5.c7aa6",
-        "name": "Set hashes",
+        "z": "fd97a500.897e08",
+        "name": "Specify hashes",
         "topic": "",
         "payload": "{\"md5\":\"f2c7bb8acc97f92e987a2d4087d021b1\",\"sha1\":\"7eb0139d2175739b3ccb0d1110067820be6abd29\",\"sha256\":\"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"}",
         "payloadType": "json",
@@ -34,34 +34,41 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 100,
+        "x": 120,
         "y": 40,
         "wires": [
             [
-                "d5eb214b.ed0cc"
+                "5f60fedb.5be85"
             ]
         ]
     },
     {
-        "id": "90e4149a.6b3208",
+        "id": "7263943c.85126c",
         "type": "debug",
-        "z": "fb1213a5.c7aa6",
+        "z": "fd97a500.897e08",
         "name": "Output result",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 630,
-        "y": 40,
+        "x": 490,
+        "y": 220,
         "wires": []
     },
     {
-        "id": "d5eb214b.ed0cc",
+        "id": "5f60fedb.5be85",
         "type": "change",
-        "z": "fb1213a5.c7aa6",
-        "name": "Set file name",
+        "z": "fd97a500.897e08",
+        "name": "Set hashes and filename request parameters",
         "rules": [
+            {
+                "t": "set",
+                "p": "hashes",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
             {
                 "t": "set",
                 "p": "fileName",
@@ -75,11 +82,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 250,
-        "y": 40,
+        "x": 270,
+        "y": 120,
         "wires": [
             [
-                "64d301fb.643ca"
+                "adee8c75.f75d6"
             ]
         ]
     }

@@ -1,74 +1,92 @@
 [
     {
-        "id": "33845424.03d77c",
+        "id": "df76c5bb.081c88",
         "type": "tab",
         "label": "TIE Get Certificate First References Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "93618e95.dbb09",
+        "id": "7949a05e.d9ee5",
         "type": "dxl-tie-get-certificate-first-references",
-        "z": "33845424.03d77c",
+        "z": "df76c5bb.081c88",
         "name": "Get first references from TIE",
         "client": "",
         "returnType": "obj",
-        "x": 560,
-        "y": 40,
+        "x": 320,
+        "y": 220,
         "wires": [
             [
-                "d55e15b4.ded828"
+                "d632a05f.e2877"
             ]
         ]
     },
     {
-        "id": "cc10caec.6af558",
+        "id": "786993be.08bf2c",
         "type": "inject",
-        "z": "33845424.03d77c",
-        "name": "Set cert SHA1",
+        "z": "df76c5bb.081c88",
+        "name": "Specify cert hashes",
         "topic": "",
-        "payload": "6eae26db8c13182a7947982991b4321732cc3de2",
-        "payloadType": "str",
+        "payload": "{\"certBodySha1\":\"6eae26db8c13182a7947982991b4321732cc3de2\",\"publicKeySha1\":\"3b87a2d6f39770160364b79a152fcc73bae27adf\"}",
+        "payloadType": "json",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 110,
+        "x": 130,
         "y": 40,
         "wires": [
             [
-                "c8b22918.e768c8"
+                "ea30d3fe.8e9b"
             ]
         ]
     },
     {
-        "id": "c8b22918.e768c8",
-        "type": "function",
-        "z": "33845424.03d77c",
-        "name": "Set cert public key SHA1",
-        "func": "msg.publicKeySha1 = '3b87a2d6f39770160364b79a152fcc73bae27adf'\nreturn msg",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 310,
-        "y": 40,
-        "wires": [
-            [
-                "93618e95.dbb09"
-            ]
-        ]
-    },
-    {
-        "id": "d55e15b4.ded828",
+        "id": "d632a05f.e2877",
         "type": "debug",
-        "z": "33845424.03d77c",
+        "z": "df76c5bb.081c88",
         "name": "Output first references",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 800,
-        "y": 40,
+        "x": 560,
+        "y": 220,
         "wires": []
+    },
+    {
+        "id": "ea30d3fe.8e9b",
+        "type": "change",
+        "z": "df76c5bb.081c88",
+        "name": "Set hash request parameters",
+        "rules": [
+            {
+                "t": "set",
+                "p": "sha1",
+                "pt": "msg",
+                "to": "payload.certBodySha1",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "publicKeySha1",
+                "pt": "msg",
+                "to": "payload.publicKeySha1",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 120,
+        "wires": [
+            [
+                "7949a05e.d9ee5"
+            ]
+        ]
     }
 ]

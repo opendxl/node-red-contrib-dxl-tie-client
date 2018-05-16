@@ -28,11 +28,10 @@ module.exports = function (RED) {
       this._client.registerUserNode(this)
       var tieClient = new TieClient(this._client.dxlClient)
       this.on('input', function (msg) {
+        var hashes = Util.popKey(msg, 'hashes')
         var trustLevel = NodeUtils.valueToNumber(nodeConfig.trustLevel,
           Util.popKey(msg, 'trustLevel'))
-        if (!msg.payload) {
-          node.error('Hashes not set in payload', msg)
-        } else {
+        if (hashes) {
           var fileName = Util.popKey(msg, 'fileName')
           var comment = NodeUtils.defaultIfEmpty(nodeConfig.comment,
             Util.popKey(msg, 'comment'))
@@ -46,10 +45,12 @@ module.exports = function (RED) {
               }
             },
             trustLevel,
-            msg.payload,
+            hashes,
             fileName,
             comment
           )
+        } else {
+          node.error('hashes property was not specified', msg)
         }
       })
       this.on('close', function (done) {

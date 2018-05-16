@@ -32,7 +32,8 @@ module.exports = function (RED) {
       this._client.registerUserNode(this)
       var tieClient = new TieClient(this._client.dxlClient)
       this.on('input', function (msg) {
-        if (msg.payload) {
+        var hashes = Util.popKey(msg, 'hashes')
+        if (hashes) {
           var queryLimit = NodeUtils.valueToNumber(
             nodeConfig.queryLimit, Util.popKey(msg, 'queryLimit'))
           tieClient.getFileFirstReferences(
@@ -45,11 +46,11 @@ module.exports = function (RED) {
                 node.error(error.message, msg)
               }
             },
-            msg.payload,
+            hashes,
             queryLimit
           )
         } else {
-          node.error('Hashes not set in payload', msg)
+          node.error('hashes property was not specified', msg)
         }
       })
       this.on('close', function (done) {
