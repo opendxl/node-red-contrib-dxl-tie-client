@@ -56,30 +56,35 @@
 </script>
 
 <script type="text/x-red" data-help-name="dxl-tie-set-certificate-reputation">
-    <p>Sets the "Enterprise" reputation trust level of a specified certificate (as identified by hashes).</p>
+    <p>Sets in TIE the "Enterprise" reputation trust level of a specified certificate (as identified by hashes).</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
-       <dt>sha1 <span class="property-type">string</span></dt>
-       <dd> The SHA-1 of the certificate.</dd>
-       <dt class="optional">publicKeySha1 <span class="property-type">number</span></dt>
-       <dd> The SHA-1 of the certificate's public key.</dd>
-       <dt class="optional">trustLevel <span class="property-type">number</span></dt>
-       <dd> The new "trust level" for the certificate. The list of standard "trust levels" can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.TrustLevel" target="_blank">TrustLevel documentation</a> in the TIE Python client SDK.</dd>
-       <dt class="optional">comment <span class="property-type">string</span></dt>
-       <dd> A comment to associate with the certificate.</dd>
+        <dt>sha1 <span class="property-type">string</span></dt>
+        <dd> SHA-1 of the certificate.</dd>
+        <dt class="optional">publicKeySha1 <span class="property-type">number</span></dt>
+        <dd> SHA-1 of the certificate's public key.</dd>
+        <dt class="optional">trustLevel <span class="property-type">number</span></dt>
+        <dd> New "trust level" for the certificate. The list of standard "trust levels" can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.TrustLevel" target="_blank">TrustLevel documentation</a> in the TIE Python client SDK.</dd>
+        <dt class="optional">comment <span class="property-type">string</span></dt>
+        <dd> Comment to associate with the certificate.</dd>
     </dl>
     <h3>Outputs</h3>
     <dl class="message-properties">
-       <dt>payload <span class="property-type">string</span></dt>
-       <dd> Assuming the reputation can be set, this property will have a text string value of "Succeeded".</dd>
+        <dt>payload <span class="property-type">string</span></dt>
+        <dd> Assuming the reputation can be set, this property will have a text string value of "Succeeded".</dd>
     </dl>
     <h3>Prerequisites</h3>
     <p>The DXL client invoking this method must have permission to send messages to the <code>/mcafee/service/tie/cert/reputation/set</code> topic which is part of the <code>TIE Server Set Enterprise Reputation</code> authorization group.</p>
     <p>The <a href="https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html">MAR client authorization documentation</a> provides an example of authorizing a DXL client to send messages to an authorization group. While the example is based on McAfee Active Response (MAR), the instructions are the same with the exception of swapping the <code>TIE Server Set Enterprise Reputation</code> authorization group in place of <code>Active Response Server API</code>.</p>
     <h3>Node Properties</h3>
-    <p><i>Client</i> is the configuration node for the DXL client through which the request should be made.
-    Click on the pencil icon to add or modify a client configuration.</p>
-    <p><i>Name</i> is only used for display purposes in the Node-RED user interface.</p>
-    <p><i>Trust level</i> is the new "trust level" for the certificate. If the value is set to <code>Defer to msg.trustLevel property</code>, the trust level will be retrieved from the <code>msg.trustLevel</code> property in the input message. If the trust level is not set either in the node or an input message property, the current flow is halted with an error.</p>
-    <p><i>Comment</i> is a comment to associate with the certificate. If the value is empty, the comment will be derived from the input message's <code>msg.comment</code> property.</p>
+    <dl class="message-properties">
+        <dt>Client</dt>
+        <dd> Configuration node for the DXL client through which the request should be made. Click on the pencil icon to add or modify a client configuration.</dd>
+        <dt>Name</dt>
+        <dd> Used only for display purposes in the Node-RED user interface.</dd>
+        <dt>Trust level</dt>
+        <dd> New "trust level" for the certificate. If the value is set to <code>Defer to msg.trustLevel property</code>, the trust level will be retrieved from the <code>msg.trustLevel</code> property in the input message. If the trust level is not set either in the node or an input message property, the current flow is halted with an error.</dd>
+        <dt>Comment</dt>
+        <dd> Comment to associate with the certificate. If the value is empty, the comment will be derived from the input message's <code>msg.comment</code> property.</dd>
+    </dl>
 </script>

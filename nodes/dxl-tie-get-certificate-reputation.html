@@ -46,24 +46,27 @@
     <p>Retrieves from TIE the reputations for the specified certificate (as identified by the SHA-1 of the certificate and optionally the SHA-1 of the certificate's public key)</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
-       <dt>sha1 <span class="property-type">string</span></dt>
-       <dd> The SHA-1 of the certificate.</dd>
-       <dt class="optional">publicKeySha1 <span class="property-type">number</span></dt>
-       <dd> The SHA-1 of the certificate's public key.</dd>
+        <dt>sha1 <span class="property-type">string</span></dt>
+        <dd> The SHA-1 of the certificate.</dd>
+        <dt class="optional">publicKeySha1 <span class="property-type">number</span></dt>
+        <dd> The SHA-1 of the certificate's public key.</dd>
     </dl>
     <h3>Outputs</h3>
     <dl class="message-properties">
-       <dt>payload <span class="property-type">string | object | buffer</span></dt>
-       <dd> An object where each <code>value</code> is a reputation from a particular reputation provider which is identified by the <code>key</code>.
-       The list of certificate reputation providers can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertProvider" target="_blank">CertProvider documentation</a> in the TIE Python client SDK.
-       Through the <i>Return</i> node property, the node can be configured to set the payload type as a UTF-8 String, an Object parsed from a JSON formatted string, or as a binary Buffer.</dd>
+        <dt>payload <span class="property-type">string | object | buffer</span></dt>
+        <dd> Object where each <code>value</code> is a reputation from a particular reputation provider which is identified by the <code>key</code>.
+        The list of certificate reputation providers can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertProvider" target="_blank">CertProvider documentation</a> in the TIE Python client SDK.
+        Through the <code>Return</code> node property, the node can be configured to set the payload type as a UTF-8 String, an Object parsed from a JSON formatted string, or as a binary Buffer.</dd>
     </dl>
     <h3>Node Properties</h3>
-    <p><i>Client</i> is the configuration node for the DXL client through which the request should be made.
-    Click on the pencil icon to add or modify a client configuration.</p>
-    <p><i>Name</i> is only used for display purposes in the Node-RED user interface.</p>
-    <p><i>Return</i> controls the data type for the <code>msg.payload</code> property in the output message.</p>
-    <p>If an error occurs when attempting to convert the payload into the desired data type, the current flow is halted with an error.</p>
+    <dl class="message-properties">
+        <dt>Client</dt>
+        <dd> Configuration node for the DXL client through which the request should be made. Click on the pencil icon to add or modify a client configuration.</dd>
+        <dt>Name</dt>
+        <dd> Used only for display purposes in the Node-RED user interface.</dd>
+        <dt>Return</dt>
+        <dd> Controls the data type for the <code>msg.payload</code> property in the output message. If an error occurs when attempting to convert the payload into the desired data type, the current flow is halted with an error.</dd>
+    </dl>
     <h3>Details</h3>
     <p>While the SHA-1 of the certificate is required, passing the optional SHA-1 of the certificate's public key can result in additional reputations being located across the set of certificate reputation providers.</p>
     <p>An example reputations return payload is shown below:</p>
