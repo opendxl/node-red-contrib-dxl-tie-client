@@ -1,15 +1,15 @@
 [
     {
-        "id": "e9047f23.7ce77",
+        "id": "5a03cb3e.4315a4",
         "type": "tab",
         "label": "TIE Detection Event Example",
         "disabled": false,
-        "info": ""
+        "info": "This sample registers with the DXL fabric to receive detection events from TIE\r\nwhen detections occur on managed systems. The payload from the event message\r\nreceived is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see the\r\n  [DXL Configuration Sample](https://github.com/opendxl/node-red-contrib-dxl/wiki/Client-Configuration)).\r\n* A TIE service is available on the DXL fabric.\r\n\r\n### Setup\r\n\r\nTo deploy the flow, press the `Deploy` button in the upper-right corner of the\r\nscreen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\nwith the word `connected` should appear under the\r\n`Receive TIE file detection event` node.\r\n\r\n### Running\r\n\r\nThe actual steps to force a detection are outside the scope of this example.\r\nHowever, the following guidelines might prove useful:\r\n\r\n* Select a test executable file that is not covered by a certificate.\r\n* Make a backup of the test file (it may be cleaned depending on the current\r\n  action enforcement policy).\r\n* Ensure your reputation thresholds are properly configured in policy.\r\n* Set the reputation for the test executable within the `TIE Reputations` page\r\n  so that a detection will occur.\r\n\r\n### Output\r\n\r\nAfter the detection has occurred, a entry similar to following should appear in\r\nthe Node-RED `debug` tab:\r\n\r\n```\r\n▶ { localReputation: 1, name: \"FOCUS_MALWARE2.EXE\", remediationAction: 5,\r\nagentGuid: \"{f7b43cb3-8828-4d52-9885-9c630…\", hashes: object … }\r\n```\r\n\r\nClick on the right arrow buttons to expand the contents of the object. The\r\ncontent should look similar to the following:\r\n\r\n```\r\n▼ object\r\n   localReputation: 1\r\n   name: \"FOCUS_MALWARE2.EXE\"\r\n   remediationAction: 5\r\n   agentGuid: \"{f7b43cb3-8828-4d52-9885-9c6306ded793}\"\r\n ▼ hashes: object\r\n     md5: \"eb5e2b9dc51817a086d7b97eb52410ab\"\r\n     sha1: \"435dfd470f727437c7cb4f07cba1f9a1f4272656\"\r\n     sha256: \"414bb16b10ece2db2d8448cb9f313f80cb77c310ca0c19ee03c73cba0c16fedb\"\r\n   detectionTime: 1526673843\r\n```\r\n\r\nThe following information is included in the `detection` object:\r\n\r\n* System the detection occurred on\r\n* Time the detection occurred (Epoch time)\r\n* File that triggered the detection (file name and associated hashes)\r\n* Reputation value that was calculated locally which triggered the detection\r\n* Remediation action that occurred in response to the detection\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Receive TIE file detection event\r\n\r\nThis is a `tie file detection event` input node which starts the flow. This node\r\ninjects a new message with a `payload` property which includes the information\r\nfrom the detection event.\r\n\r\n#### Output result\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Receive TIE file detection event` node."
     },
     {
-        "id": "3a601e3f.edbe92",
+        "id": "9557c55b.476f08",
         "type": "dxl-tie-file-detection in",
-        "z": "e9047f23.7ce77",
+        "z": "5a03cb3e.4315a4",
         "name": "Receive TIE file detection event",
         "client": "",
         "payloadType": "obj",
@@ -17,14 +17,14 @@
         "y": 40,
         "wires": [
             [
-                "f4a7b137.d67f2"
+                "63f25052.5038"
             ]
         ]
     },
     {
-        "id": "f4a7b137.d67f2",
+        "id": "63f25052.5038",
         "type": "debug",
-        "z": "e9047f23.7ce77",
+        "z": "5a03cb3e.4315a4",
         "name": "Output event payload",
         "active": true,
         "tosidebar": true,

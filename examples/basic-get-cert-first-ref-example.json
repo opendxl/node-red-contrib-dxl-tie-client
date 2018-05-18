@@ -1,15 +1,15 @@
 [
     {
-        "id": "df76c5bb.081c88",
+        "id": "52082b1f.b6e884",
         "type": "tab",
         "label": "TIE Get Certificate First References Example",
         "disabled": false,
-        "info": ""
+        "info": "This sample invokes the TIE DXL service to retrieve the set of systems which\r\nhave referenced a certificate (as identified by hashes). The response to the\r\nTIE request is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see the\r\n  [DXL Configuration Sample](https://github.com/opendxl/node-red-contrib-dxl/wiki/Client-Configuration)).\r\n* A TIE service is available on the DXL fabric.\r\n\r\n### Setup\r\n\r\n* Edit the `Specify cert hashes` node and modify the `Payload` property with the\r\n  hash of the certificate (and, optionally, the associated public key) that you\r\n  want to use for the lookup.\r\n\r\n  For example, if the SHA-1 of the certificate body is\r\n  \"6eae26db8c13182a7947982991b4321732cc3de2\" and the SHA-1 of the associated\r\n  public key is \"3b87a2d6f39770160364b79a152fcc73bae27adf\", you could enter\r\n  the following JSON-formatted document:\r\n  \r\n  ```json \r\n  {\r\n    \"certBodySha1\": \"6eae26db8c13182a7947982991b4321732cc3de2\",\r\n    \"publicKeySha1\": \"3b87a2d6f39770160364b79a152fcc73bae27adf\"\r\n  }\r\n  ```\r\n\r\n  If you only have a SHA-1 for the certificate body but not a SHA-1 for the\r\n  associated public key, you could instead enter the following:\r\n\r\n  ```json \r\n  {\r\n    \"certBodySha1\": \"6eae26db8c13182a7947982991b4321732cc3de2\",\r\n  }\r\n  ```\r\n    \r\n* To deploy the flow, press the `Deploy` button in the upper-right corner of the\r\n  screen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\n  with the word `connected` should appear under the\r\n  `Get first references from TIE` node.\r\n\r\n### Running\r\n\r\nTo exercise the flow, double-click the button on the left side of the\r\n`Specify cert hashes` node.\r\n\r\n### Output\r\n\r\nThe output in the Node-RED `debug` tab should appear similar to the following:\r\n\r\n```\r\n▶ [ object, object]\r\n```\r\n\r\nClick on the right arrow buttons to expand the contents of the object. The\r\ncontent should look similar to the following:\r\n\r\n```\r\n▼ array[2]\r\n ▼ 0: object\r\n     date: 1475873692\r\n     agentGuid: \"{3a6f574a-3e6f-436d-acd4-bcde336b054d}\"\r\n ▼ 1: object\r\n     date: 1478626172\r\n     agentGuid: \"{68125cd6-a5d8-11e6-348e-000c29663178}\"\r\n```\r\n\r\nEach entry in the array is an object containing details about a system that has\r\nreferenced the certificate. The following information is included in each\r\nentry:\r\n\r\n* GUID of the system that referenced the certificate\r\n* Time the system first referenced the certificate\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Specify cert hashes\r\n\r\nThis is an `inject` input node which starts the flow. This node\r\ninjects a new message with a `payload` property which specifies the hash of the\r\ncertificate (and, optionally, the associated public key) to use for the lookup.\r\n\r\n#### Set hash request parameters\r\n\r\nThis is a `change` node which copies the value from the `payload.certBodySha1`\r\nmessage property to the `sha1` property and the value from the\r\n`payload.publicKeySha1` message property to the `publicKeySha1` property.\r\nThe `Get first references from TIE` node uses the `sha1` and `publicKeySha1`\r\nproperties when constructing the parameters for the TIE first references\r\nrequest. \r\n\r\n#### Get first references from TIE\r\n\r\nThis is a `tie get certificate first references` node. This node connects to\r\nthe DXL fabric and sends a DXL `Request` message to the TIE service to lookup\r\nfirst references information.\r\n\r\nThe request message also includes the `sha1` and `publicKeySha1` properties set\r\nby the `Set hash request parameters` node.\r\n\r\nThe `Return` property is set to \"a parsed JSON object\" to indicate that the\r\npayload for the response should be added to the output message as a JavaScript\r\nobject decoded from JSON.\r\n\r\n#### Output first references\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Get first references from TIE` node. The output should\r\ninclude information for the systems that have referenced the certificate."
     },
     {
-        "id": "7949a05e.d9ee5",
+        "id": "e9d8da4e.da51e8",
         "type": "dxl-tie-get-certificate-first-references",
-        "z": "df76c5bb.081c88",
+        "z": "52082b1f.b6e884",
         "name": "Get first references from TIE",
         "client": "",
         "returnType": "obj",
@@ -17,14 +17,14 @@
         "y": 220,
         "wires": [
             [
-                "d632a05f.e2877"
+                "ea3234fc.2618a8"
             ]
         ]
     },
     {
-        "id": "786993be.08bf2c",
+        "id": "5b6fae81.69618",
         "type": "inject",
-        "z": "df76c5bb.081c88",
+        "z": "52082b1f.b6e884",
         "name": "Specify cert hashes",
         "topic": "",
         "payload": "{\"certBodySha1\":\"6eae26db8c13182a7947982991b4321732cc3de2\",\"publicKeySha1\":\"3b87a2d6f39770160364b79a152fcc73bae27adf\"}",
@@ -37,14 +37,14 @@
         "y": 40,
         "wires": [
             [
-                "ea30d3fe.8e9b"
+                "16c4b516.67491b"
             ]
         ]
     },
     {
-        "id": "d632a05f.e2877",
+        "id": "ea3234fc.2618a8",
         "type": "debug",
-        "z": "df76c5bb.081c88",
+        "z": "52082b1f.b6e884",
         "name": "Output first references",
         "active": true,
         "tosidebar": true,
@@ -56,9 +56,9 @@
         "wires": []
     },
     {
-        "id": "ea30d3fe.8e9b",
+        "id": "16c4b516.67491b",
         "type": "change",
-        "z": "df76c5bb.081c88",
+        "z": "52082b1f.b6e884",
         "name": "Set hash request parameters",
         "rules": [
             {
@@ -85,8 +85,18 @@
         "y": 120,
         "wires": [
             [
-                "7949a05e.d9ee5"
+                "e9d8da4e.da51e8"
             ]
         ]
+    },
+    {
+        "id": "4eda9d46.1590a4",
+        "type": "comment",
+        "z": "52082b1f.b6e884",
+        "name": "Supply the cert hashes in the 'Specify cert hashes' node",
+        "info": "",
+        "x": 460,
+        "y": 40,
+        "wires": []
     }
 ]

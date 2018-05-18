@@ -1,31 +1,31 @@
 [
     {
-        "id": "b5a0a1e7.eec7a",
+        "id": "ca491f04.1ee0d",
         "type": "tab",
         "label": "TIE Get File First References Example",
         "disabled": false,
-        "info": ""
+        "info": "This sample invokes the TIE DXL service to retrieve the set of systems which\r\nhave referenced a file (as identified by hashes). The response to the TIE\r\nrequest is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see the\r\n  [DXL Configuration Sample](https://github.com/opendxl/node-red-contrib-dxl/wiki/Client-Configuration)).\r\n* A TIE service is available on the DXL fabric.\r\n\r\n### Setup\r\n\r\nEdit the `Specify file hashes` node and modify the `Payload` property with the\r\nhashes of the file that you want to use for the lookup.\r\n\r\nThe default hashes used in the JSON-formatted document for this node\r\npertain to `notepad.exe`:\r\n\r\n```json\r\n{\r\n  \"md5\": \"f2c7bb8acc97f92e987a2d4087d021b1\",\r\n  \"sha1\": \"7eb0139d2175739b3ccb0d1110067820be6abd29\",\r\n  \"sha256\": \"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"\r\n}\r\n```\r\n\r\nThis sample is equivalent to running the `\"Where Has File Run\"` action in the\r\n`\"TIE Reputations\"` page within ePO.\r\n\r\nA simple way to determine a valid set of hashes to use with this sample is\r\ndetailed below:\r\n\r\n* Open ePO and navigate to the `\"TIE Reputations\"` page.\r\n* Select the `\"File Search\"` tab\r\n* Select a `file` in the list\r\n* Click the `\"Actions\"` button at the bottom left and select\r\n`\"Where Has File Run\"`\r\n* The `\"Where Has File Run\"` results page is displayed. The GUIDs associated\r\nwith the systems in this list are what will be displayed when the sample is\r\nexecuted.\r\n* Close the `\"Where Has File Run\"` results\r\n* Click on the same `file` to display its associated reputation information\r\n* In the `\"File Reputations Information\"` page copy the `\"MD5 Hash\"`,\r\n`\"SHA-1 Hash\"`, and `\"SHA-256 Hash\"` values and paste them into the sample\r\nprior to running (as shown in the example above)\r\n\r\nTo deploy the flow, press the `Deploy` button in the upper-right corner of the\r\nscreen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\nwith the word `connected` should appear under the\r\n`Get first references from TIE` node.\r\n\r\n### Running\r\n\r\nTo exercise the flow, double-click the button on the left side of the\r\n`Specify file hashes` node.\r\n\r\n### Output\r\n\r\nThe output in the Node-RED `debug` tab should appear similar to the following:\r\n\r\n```\r\n▶ [ object, object, object ]\r\n```\r\n\r\nClick on the right arrow buttons to expand the contents of the object. The\r\ncontent should look similar to the following:\r\n\r\n```\r\n▼ array[2]\r\n ▼ 0: object\r\n     date: 1475873692\r\n     agentGuid: \"{3a6f574a-3e6f-436d-acd4-bcde336b054d}\"\r\n ▼ 1: object\r\n     date: 1476316674\r\n     agentGuid: \"{d48d3d1a-915e-11e6-323a-000c2992f5d9}\"\r\n ▼ 2: object\r\n     date: 1478626172\r\n     agentGuid: \"{68125cd6-a5d8-11e6-348e-000c29663178}\"\r\n```\r\n\r\nEach entry in the array is an object containing details about a system that has\r\nreferenced the file. The following information is included in each entry:\r\n\r\n* GUID of the system that referenced the file\r\n* Time the system first referenced the file\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Specify file hashes\r\n\r\nThis is an `inject` input node which starts the flow. This node\r\ninjects a new message with a `payload` property which specifies the hashes of\r\nthe file to use for the lookup.\r\n\r\n#### Set hash request parameters\r\n\r\nThis is a `change` node which copies the value from the `payload` message\r\nproperty to the `hashes` property. The `Get first references from TIE` node uses\r\nthe `hashes` property when constructing the parameters for the TIE first\r\nreferences request. \r\n\r\n#### Get first references from TIE\r\n\r\nThis is a `tie get file first references` node. This node connects to the DXL\r\nfabric and sends a DXL `Request` message to the TIE service to lookup\r\nfirst references information.\r\n\r\nThe request message includes the `hashes` properties set by the\r\n`Set hash request parameters` node.\r\n\r\nThe `Return` property is set to \"a parsed JSON object\" to indicate that the\r\npayload for the response should be added to the output message as a JavaScript\r\nobject decoded from JSON.\r\n\r\n#### Output first references\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Get first references from TIE` node. The output should\r\ninclude information for the systems that have referenced the file."
     },
     {
-        "id": "8d484a40.544cf8",
+        "id": "bc4fdfa7.28b84",
         "type": "dxl-tie-get-file-first-references",
-        "z": "b5a0a1e7.eec7a",
+        "z": "ca491f04.1ee0d",
         "name": "Get first references from TIE",
         "client": "",
         "returnType": "obj",
         "x": 300,
-        "y": 200,
+        "y": 220,
         "wires": [
             [
-                "7a822052.ab5d9"
+                "70fe2756.7329f8"
             ]
         ]
     },
     {
-        "id": "daf0e7fa.0824b8",
+        "id": "a13fb19b.da61c",
         "type": "inject",
-        "z": "b5a0a1e7.eec7a",
-        "name": "Specify hashes for Notepad.exe",
+        "z": "ca491f04.1ee0d",
+        "name": "Specify file hashes",
         "topic": "",
         "payload": "{\"md5\":\"f2c7bb8acc97f92e987a2d4087d021b1\",\"sha1\":\"7eb0139d2175739b3ccb0d1110067820be6abd29\",\"sha256\":\"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"}",
         "payloadType": "json",
@@ -33,18 +33,18 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 170,
+        "x": 130,
         "y": 40,
         "wires": [
             [
-                "7a037663.ca19f8"
+                "8ed81075.70d3b"
             ]
         ]
     },
     {
-        "id": "7a822052.ab5d9",
+        "id": "70fe2756.7329f8",
         "type": "debug",
-        "z": "b5a0a1e7.eec7a",
+        "z": "ca491f04.1ee0d",
         "name": "Output first references",
         "active": true,
         "tosidebar": true,
@@ -52,33 +52,13 @@
         "tostatus": false,
         "complete": "payload",
         "x": 540,
-        "y": 200,
+        "y": 220,
         "wires": []
     },
     {
-        "id": "e239278e.59c018",
-        "type": "inject",
-        "z": "b5a0a1e7.eec7a",
-        "name": "Specify hashes for EICAR",
-        "topic": "",
-        "payload": "{\"md5\":\"44d88612fea8a8f36de82e1278abb02f\",\"sha1\":\"3395856ce81f2b7382dee72602f798b642f14140\",\"sha256\":\"275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f\"}",
-        "payloadType": "json",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 150,
-        "y": 100,
-        "wires": [
-            [
-                "7a037663.ca19f8"
-            ]
-        ]
-    },
-    {
-        "id": "7a037663.ca19f8",
+        "id": "8ed81075.70d3b",
         "type": "change",
-        "z": "b5a0a1e7.eec7a",
+        "z": "ca491f04.1ee0d",
         "name": "Set hashes request parameter",
         "rules": [
             {
@@ -94,12 +74,22 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 470,
-        "y": 80,
+        "x": 270,
+        "y": 120,
         "wires": [
             [
-                "8d484a40.544cf8"
+                "bc4fdfa7.28b84"
             ]
         ]
+    },
+    {
+        "id": "1bb3c9fe.b8a3c6",
+        "type": "comment",
+        "z": "ca491f04.1ee0d",
+        "name": "Supply the file hashes in the 'Specify file hashes' node",
+        "info": "",
+        "x": 460,
+        "y": 40,
+        "wires": []
     }
 ]

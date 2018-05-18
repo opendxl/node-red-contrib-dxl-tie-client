@@ -1,15 +1,15 @@
 [
     {
-        "id": "e0b83fd8.c5817",
+        "id": "61c1373f.5170f8",
         "type": "tab",
         "label": "TIE Reputation Change Event Example",
         "disabled": false,
-        "info": ""
+        "info": "This sample registers with the DXL fabric to receive reputation change events\r\nsent by TIE when the reputation of a file or certificate changes. The payload\r\nfrom the event message received is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see the\r\n  [DXL Configuration Sample](https://github.com/opendxl/node-red-contrib-dxl/wiki/Client-Configuration)).\r\n* A TIE service is available on the DXL fabric.\r\n\r\n### Setup\r\n\r\nTo deploy the flow, press the `Deploy` button in the upper-right corner of the\r\n screen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\nwith the word `connected` should appear under the\r\n`Receive TIE file reputation change event` and\r\n`Receive TIE cert reputation change event` nodes.\r\n\r\n### Running\r\n\r\nThe next step is to force a reputation change for a file or certificate via ePO.\r\nThe steps to accomplish this are listed below:\r\n\r\n* Open ePO and navigate to the `\"TIE Reputations\"` page.\r\n* Select the `\"File Search\"` or `\"Certificate Search\"` tab\r\n* Select a `file` or `certificate` in the list\r\n* Click the `\"Actions\"` button at the bottom left and select a new \"Enterprise\"\r\n  reputation (for example, `Known Trusted`)\r\n\r\n  **Note**: It is safest to select a file (or certificate) that has a \"GTI\"\r\n  Reputation of `Known Trusted` and simply set the \"Enterprise\" reputation to be\r\n  the same (`Known Trusted`).\r\n\r\n* Remove the override by clicking on the `\"Actions\"` button again and selecting\r\n  `\"Remove Override\"`\r\n\r\n### Output\r\n\r\nAfter the reputation change has occurred, a entry similar to following should\r\nappear in the Node-RED `debug` tab:\r\n\r\n```\r\n▶ { newReputations: object, relationships: object, hashes: object,\r\nupdateTime: 1526675921, oldReputations: object }\r\n```\r\n\r\nClick on the right arrow buttons to expand the contents of the object. The\r\ncontent should look similar to the following:\r\n\r\n```\r\n▼ object\r\n ▼ newReputations: object\r\n  ▼ 1: object\r\n   ▼ attributes: object\r\n       2120340: \"2139160704\"\r\n     createDate: 1451502875\r\n     providerId: 1\r\n     trustLevel: 99\r\n  ▼ 3: object\r\n   ▼ attributes: object\r\n       2101652: \"17\"\r\n       2102165: \"1451502875\"\r\n       2111893: \"21\"\r\n       2114965: \"0\"\r\n       2139285: \"72339069014638857\"\r\n     createDate: 1526675921\r\n     providerId: 3\r\n     trustLevel: 99\r\n ▼ hashes: object\r\n     md5: \"f2c7bb8acc97f92e987a2d4087d021b1\"\r\n     sha1: \"7eb0139d2175739b3ccb0d1110067820be6abd29\"\r\n     sha256: \"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"\r\n   updateTime: 1526675921\r\n ▼ oldReputations: object\r\n  ▼ 1: object\r\n   ▼ attributes: object\r\n       2120340: \"2139160704\"\r\n     createDate: 1451502875\r\n     providerId: 1\r\n     trustLevel: 99\r\n  ▼ 3: object\r\n   ▼ attributes: object\r\n       2101652: \"17\"\r\n       2102165: \"1451502875\"\r\n       2111893: \"21\"\r\n       2114965: \"0\"\r\n       2139285: \"72339069014638857\"\r\n     createDate: 1451502875\r\n     providerId: 3\r\n     trustLevel: 99\r\n```\r\n\r\nThe `reputation change` information is separated into 4 distinct sections:\r\n\r\n#### Hash values\r\n\r\nAn object of hashes that identify the file or certificate whose reputation has\r\nchanged.\r\n\r\n#### New reputations\r\n\r\nThe new `Reputations` for the file or certificate whose reputation has changed\r\n(as an object).\r\n\r\n#### Old reputations\r\n\r\nThe previous `Reputations` for the file or certificate whose reputation has\r\nchanged (as an object).\r\n\r\n#### Change time\r\n\r\nThe time the reputation change occurred.\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Receive TIE file reputation change event\r\n\r\nThis is a `tie file reputation change event` input node which starts the flow.\r\nThis node injects a new message with a `payload` property which includes the\r\ninformation from the file reputation change event.\r\n\r\n#### Receive TIE cert reputation change event\r\n\r\nThis is a `tie cert reputation change event` input node which starts the flow.\r\nThis node injects a new message with a `payload` property which includes the\r\ninformation from the certificate reputation change event.\r\n\r\n#### Output result\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the either the `Receive TIE file reputation change event` or\r\n`Receive TIE cert reputation change event` node."
     },
     {
-        "id": "c20f4d01.73074",
+        "id": "16e79a2b.479026",
         "type": "dxl-tie-file-reputation-change in",
-        "z": "e0b83fd8.c5817",
+        "z": "61c1373f.5170f8",
         "name": "Receive TIE file reputation change event",
         "client": "",
         "payloadType": "obj",
@@ -17,14 +17,14 @@
         "y": 40,
         "wires": [
             [
-                "be00b774.9d4318"
+                "c93a2666.993f78"
             ]
         ]
     },
     {
-        "id": "b42f7363.5cbf5",
+        "id": "b421f600.651918",
         "type": "dxl-tie-certificate-reputation-change in",
-        "z": "e0b83fd8.c5817",
+        "z": "61c1373f.5170f8",
         "name": "Receive TIE cert reputation change event",
         "client": "",
         "payloadType": "obj",
@@ -32,14 +32,14 @@
         "y": 100,
         "wires": [
             [
-                "be00b774.9d4318"
+                "c93a2666.993f78"
             ]
         ]
     },
     {
-        "id": "be00b774.9d4318",
+        "id": "c93a2666.993f78",
         "type": "debug",
-        "z": "e0b83fd8.c5817",
+        "z": "61c1373f.5170f8",
         "name": "Output event payload",
         "active": true,
         "tosidebar": true,

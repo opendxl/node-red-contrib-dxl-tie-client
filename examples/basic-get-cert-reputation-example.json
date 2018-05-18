@@ -1,15 +1,15 @@
 [
     {
-        "id": "56a913fe.c0faec",
+        "id": "8084b4ef.d5b8c8",
         "type": "tab",
         "label": "TIE Get Certificate Reputation Example",
         "disabled": false,
-        "info": ""
+        "info": "This sample invokes the TIE DXL service to retrieve the reputation of a\r\ncertificate (as identified by hashes). The response to the TIE request is\r\nprinted to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see the\r\n  [DXL Configuration Sample](https://github.com/opendxl/node-red-contrib-dxl/wiki/Client-Configuration)).\r\n* A TIE service is available on the DXL fabric.\r\n\r\n### Setup\r\n\r\n* Edit the `Specify cert hashes` node and modify the `Payload` property with the\r\n  hash of the certificate (and, optionally, the associated public key) that you\r\n  want to use for the lookup.\r\n\r\n  For example, if the SHA-1 of the certificate body is\r\n  \"6eae26db8c13182a7947982991b4321732cc3de2\" and the SHA-1 of the associated\r\n  public key is \"3b87a2d6f39770160364b79a152fcc73bae27adf\", you could enter\r\n  the following JSON-formatted document:\r\n  \r\n  ```json \r\n  {\r\n    \"certBodySha1\": \"6eae26db8c13182a7947982991b4321732cc3de2\",\r\n    \"publicKeySha1\": \"3b87a2d6f39770160364b79a152fcc73bae27adf\"\r\n  }\r\n  ```\r\n\r\n  If you only have a SHA-1 for the certificate body but not a SHA-1 for the\r\n  associated public key, you could instead enter the following:\r\n\r\n  ```json \r\n  {\r\n    \"certBodySha1\": \"6eae26db8c13182a7947982991b4321732cc3de2\",\r\n  }\r\n  ```\r\n    \r\n* To deploy the flow, press the `Deploy` button in the upper-right corner of the\r\n  screen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\n  with the word `connected` should appear under the\r\n  `Get reputation from TIE` node.\r\n\r\n### Running\r\n\r\nTo exercise the flow, double-click the button on the left side of the\r\n`Specify cert hashes` node.\r\n\r\n### Output\r\n\r\nThe output in the Node-RED `debug` tab should appear similar to the following:\r\n\r\n```\r\n▶ { 2: object, 4: object }\r\n```\r\n\r\nClick on the right arrow buttons to expand the contents of the object. The\r\ncontent should look similar to the following:\r\n\r\n```\r\n▼ object\r\n ▼ 2: object\r\n  ▼ attributes: object\r\n      2108821: \"94\"\r\n      2109077: \"1454912619\"\r\n      2117524: \"0\"\r\n      2120596: \"0\"\r\n    createDate: 1476318514\r\n    providerId: 2\r\n    trustLevel: 99\r\n ▼ 4: object\r\n  ▼ attributes: object\r\n      2109333: \"12\"\r\n      2109589: \"1476318514\"\r\n      2139285: \"7318349394477075\r\n    createDate: 1476318514\r\n    providerId: 4\r\n    trustLevel: 0\r\n```\r\n\r\nThe `key` for each entry in the object corresponds to a particular `provider` of\r\nthe associated `reputation`. The list of certificate reputation providers can\r\nbe found in the\r\n[CertProvider documentation](https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertProvider)\r\nin the TIE Python client SDK.\r\n\r\nThe McAfee Global Threat Intelligence (GTI) service is identified in the results\r\nas `providerId: 2`. The trust level associated with the GTI response\r\n(`trustLevel: 99`) indicates that the certificate is known good.\r\n\r\nSee the \r\n[TrustLevel documentation](https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.TrustLevel)\r\nin the TIE Python client SDK for the list of standard trust levels.\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Specify cert hashes\r\n\r\nThis is an `inject` input node which starts the flow. This node\r\ninjects a new message with a `payload` property which specifies the hash of the\r\ncertificate (and, optionally, the associated public key) to use for the lookup.\r\n\r\n#### Set hash request parameters\r\n\r\nThis is a `change` node which copies the value from the `payload.certBodySha1`\r\nmessage property to the `sha1` property and the value from the\r\n`payload.publicKeySha1` message property to the `publicKeySha1` property.\r\nThe `Get reputation from TIE` node uses the `sha1` and `publicKeySha1`\r\nproperties when constructing the parameters for the TIE certificate reputation\r\nrequest. \r\n\r\n#### Get reputation from TIE\r\n\r\nThis is a `tie get certificate reputation` node. This node connects to\r\nthe DXL fabric and sends a DXL `Request` message to the TIE service to lookup\r\ncertificate reputation information.\r\n\r\nThe request message also includes the `sha1` and `publicKeySha1` properties set\r\nby the `Set hash request parameters` node.\r\n\r\nThe `Return` property is set to \"a parsed JSON object\" to indicate that the\r\npayload for the response should be added to the output message as a JavaScript\r\nobject decoded from JSON.\r\n\r\n#### Output first references\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Get reputation from TIE` node. The output should\r\ninclude information for reputation data for the certificate."
     },
     {
-        "id": "4668bae2.faa7c4",
+        "id": "e29d673a.e54ae8",
         "type": "dxl-tie-get-certificate-reputation",
-        "z": "56a913fe.c0faec",
+        "z": "8084b4ef.d5b8c8",
         "name": "Get reputation from TIE",
         "client": "",
         "returnType": "obj",
@@ -17,14 +17,14 @@
         "y": 200,
         "wires": [
             [
-                "236c332.35ed5cc"
+                "4a548230.ab749c"
             ]
         ]
     },
     {
-        "id": "236c332.35ed5cc",
+        "id": "4a548230.ab749c",
         "type": "debug",
-        "z": "56a913fe.c0faec",
+        "z": "8084b4ef.d5b8c8",
         "name": "Output reputation",
         "active": true,
         "tosidebar": true,
@@ -36,9 +36,9 @@
         "wires": []
     },
     {
-        "id": "a933701a.48939",
+        "id": "e7edb704.5933b8",
         "type": "inject",
-        "z": "56a913fe.c0faec",
+        "z": "8084b4ef.d5b8c8",
         "name": "Specify cert hashes",
         "topic": "",
         "payload": "{\"certBodySha1\":\"6eae26db8c13182a7947982991b4321732cc3de2\",\"publicKeySha1\":\"3b87a2d6f39770160364b79a152fcc73bae27adf\"}",
@@ -51,14 +51,14 @@
         "y": 40,
         "wires": [
             [
-                "d76877f2.fa73a8"
+                "13cf8cf4.79e563"
             ]
         ]
     },
     {
-        "id": "d76877f2.fa73a8",
+        "id": "13cf8cf4.79e563",
         "type": "change",
-        "z": "56a913fe.c0faec",
+        "z": "8084b4ef.d5b8c8",
         "name": "Set hash request parameters",
         "rules": [
             {
@@ -85,8 +85,18 @@
         "y": 120,
         "wires": [
             [
-                "4668bae2.faa7c4"
+                "e29d673a.e54ae8"
             ]
         ]
+    },
+    {
+        "id": "3c438871.c71258",
+        "type": "comment",
+        "z": "8084b4ef.d5b8c8",
+        "name": "Supply the cert hashes in the 'Specify cert hashes' node",
+        "info": "",
+        "x": 460,
+        "y": 40,
+        "wires": []
     }
 ]
