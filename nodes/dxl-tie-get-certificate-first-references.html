@@ -52,6 +52,8 @@
         <dd> SHA-1 of the certificate.</dd>
         <dt class="optional">publicKeySha1 <span class="property-type">number</span></dt>
         <dd> SHA-1 of the certificate's public key.</dd>
+        <dt class="optional">queryLimit <span class="property-type">number</span></dt>
+        <dd> Maximum number of results to return.</dd>
     </dl>
     <h3>Outputs</h3>
     <dl class="message-properties">
@@ -59,6 +61,7 @@
         <dd> Array containing an object for each system that has referenced the certificate.
        Through the <code>Return</code> node property, the node can be configured to set the payload type as a UTF-8 String, an Object parsed from a JSON formatted string, or as a binary Buffer.</dd>
     </dl>
+    <p>The <code>sha1</code>, <code>publicKeySha1</code>, and <code>queryLimit</code> properties are removed, if present, from the output message.</p>
     <h3>Node Properties</h3>
     <dl class="message-properties">
         <dt>Client</dt>

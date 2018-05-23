@@ -1,9 +1,10 @@
 'use strict'
 
-var MessageUtils = require('@opendxl/node-red-contrib-dxl').MessageUtils
+var nodeRedDxl = require('@opendxl/node-red-contrib-dxl')
+var MessageUtils = nodeRedDxl.MessageUtils
+var NodeUtils = nodeRedDxl.NodeUtils
 var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
-var Util = require('../lib/util')
 
 module.exports = function (RED) {
   function TieGetFileReputationNode (nodeConfig) {
@@ -30,7 +31,7 @@ module.exports = function (RED) {
       this._client.registerUserNode(this)
       var tieClient = new TieClient(this._client.dxlClient)
       this.on('input', function (msg) {
-        var hashes = Util.popKey(msg, 'hashes')
+        var hashes = NodeUtils.extractProperty(msg, 'hashes')
         if (hashes) {
           tieClient.getFileReputation(
             function (error, reputations) {

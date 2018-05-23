@@ -70,6 +70,7 @@
         <dt>payload <span class="property-type">string</span></dt>
         <dd> Assuming the reputation can be set, this property will have a text string value of "Succeeded".</dd>
     </dl>
+    <p>The <code>hashes</code>, <code>trustLevel</code>, <code>fileName</code>, and <code>comment</code> properties are removed, if present, from the output message.</p>
     <h3>Prerequisites</h3>
     <p>The DXL client associated with this node must have permission to send messages to the <code>/mcafee/service/tie/file/reputation/set</code> topic which is part of the <code>TIE Server Set Enterprise Reputation</code> authorization group.</p>
     <p>The <a href="https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html">MAR client authorization documentation</a> provides an example of authorizing a DXL client to send messages to an authorization group. While the example is based on McAfee Active Response (MAR), the instructions are the same with the exception of swapping the <code>TIE Server Set Enterprise Reputation</code> authorization group in place of <code>Active Response Server API</code>.</p>

@@ -3,7 +3,6 @@
 var NodeUtils = require('@opendxl/node-red-contrib-dxl').NodeUtils
 var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
-var Util = require('../lib/util')
 
 module.exports = function (RED) {
   function TieSetFileReputationNode (nodeConfig) {
@@ -28,13 +27,13 @@ module.exports = function (RED) {
       this._client.registerUserNode(this)
       var tieClient = new TieClient(this._client.dxlClient)
       this.on('input', function (msg) {
-        var hashes = Util.popKey(msg, 'hashes')
+        var hashes = NodeUtils.extractProperty(msg, 'hashes')
         var trustLevel = NodeUtils.valueToNumber(nodeConfig.trustLevel,
-          Util.popKey(msg, 'trustLevel'))
+          NodeUtils.extractProperty(msg, 'trustLevel'))
+        var fileName = NodeUtils.extractProperty(msg, 'fileName')
+        var comment = NodeUtils.defaultIfEmpty(nodeConfig.comment,
+          NodeUtils.extractProperty(msg, 'comment'))
         if (hashes) {
-          var fileName = Util.popKey(msg, 'fileName')
-          var comment = NodeUtils.defaultIfEmpty(nodeConfig.comment,
-            Util.popKey(msg, 'comment'))
           tieClient.setFileReputation(
             function (error) {
               if (error) {

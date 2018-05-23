@@ -5,7 +5,6 @@ var MessageUtils = nodeRedDxl.MessageUtils
 var NodeUtils = nodeRedDxl.NodeUtils
 var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
-var Util = require('../lib/util')
 
 module.exports = function (RED) {
   function TieGetCertificateFirstReferencesNode (nodeConfig) {
@@ -32,11 +31,11 @@ module.exports = function (RED) {
       this._client.registerUserNode(this)
       var tieClient = new TieClient(this._client.dxlClient)
       this.on('input', function (msg) {
-        var sha1 = Util.popKey(msg, 'sha1')
+        var sha1 = NodeUtils.extractProperty(msg, 'sha1')
+        var publicKeySha1 = NodeUtils.extractProperty(msg, 'publicKeySha1')
+        var queryLimit = NodeUtils.valueToNumber(nodeConfig.queryLimit,
+          NodeUtils.extractProperty(msg, 'queryLimit'))
         if (sha1) {
-          var publicKeySha1 = Util.popKey(msg, 'publicKeySha1')
-          var queryLimit = NodeUtils.valueToNumber(
-            nodeConfig.queryLimit, Util.popKey(msg, 'queryLimit'))
           tieClient.getCertificateFirstReferences(
             function (error, agents) {
               if (agents) {

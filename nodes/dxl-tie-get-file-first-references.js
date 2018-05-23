@@ -5,7 +5,6 @@ var MessageUtils = nodeRedDxl.MessageUtils
 var NodeUtils = nodeRedDxl.NodeUtils
 var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
-var Util = require('../lib/util')
 
 module.exports = function (RED) {
   function TieGetFileFirstReferencesNode (nodeConfig) {
@@ -32,10 +31,10 @@ module.exports = function (RED) {
       this._client.registerUserNode(this)
       var tieClient = new TieClient(this._client.dxlClient)
       this.on('input', function (msg) {
-        var hashes = Util.popKey(msg, 'hashes')
+        var hashes = NodeUtils.extractProperty(msg, 'hashes')
+        var queryLimit = NodeUtils.valueToNumber(
+          nodeConfig.queryLimit, NodeUtils.extractProperty(msg, 'queryLimit'))
         if (hashes) {
-          var queryLimit = NodeUtils.valueToNumber(
-            nodeConfig.queryLimit, Util.popKey(msg, 'queryLimit'))
           tieClient.getFileFirstReferences(
             function (error, reputations) {
               if (reputations) {
