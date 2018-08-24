@@ -26,6 +26,10 @@ package, the following prerequisites must be satisfied:
 * McAfee Threat Intelligence Exchange Server installed and available on DXL fabric
   * <http://www.mcafee.com/us/products/threat-intelligence-exchange.aspx>
 
+* DXL client has been configured in Node-RED.
+
+  * <https://opendxl.github.io/node-red-contrib-dxl/jsdoc/tutorial-configuration.html>
+
 * Node.js 4.0 or higher installed.
 
 ### Installation
