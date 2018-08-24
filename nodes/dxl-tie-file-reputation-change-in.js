@@ -1,3 +1,9 @@
+/**
+ * @module DxlTieFileReputationChangeIn
+ * @description Implementation of the `dxl-tie-file-reputation-change in` node
+ * @private
+ */
+
 'use strict'
 
 var MessageUtils = require('@opendxl/node-red-contrib-dxl').MessageUtils
@@ -5,6 +11,23 @@ var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
 
 module.exports = function (RED) {
+  /**
+   * @classdesc Node which registers an event callback with the DXL client to
+   * receive `file reputation` change events.
+   * @param {Object} nodeConfig - Configuration data which the node uses.
+   * @param {String} nodeConfig.client - Id of the DXL client configuration
+   *   node that this node should be associated with.
+   * @param {String} [nodeConfig.payloadType=obj] - Controls the data type for
+   *   the reputation change event payload, set as `msg.payload`. If
+   *   payloadType is 'bin', `msg.payload` is a raw binary Buffer. If
+   *   payloadType is 'txt', `msg.payload` is a String (decoded as UTF-8). If
+   *   payloadType is 'obj', is an Object (decoded as a JSON document from the
+   *   original payload). If an error occurs when attempting to convert the
+   *   binary Buffer of the payload into the desired data type, the current
+   *   flow is halted with an error.
+   * @private
+   * @constructor
+   */
   function TieFileReputationChangeInNode (nodeConfig) {
     RED.nodes.createNode(this, nodeConfig)
 
@@ -15,6 +38,12 @@ module.exports = function (RED) {
      */
     this._client = RED.nodes.getNode(nodeConfig.client)
 
+    /**
+     * Controls the data type for the file reputation change event
+     * payload.
+     * @type {String}
+     * @private
+     */
     this._payloadType = nodeConfig.payloadType || 'obj'
 
     var node = this

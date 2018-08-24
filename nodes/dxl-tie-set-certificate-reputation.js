@@ -1,3 +1,9 @@
+/**
+ * @module DxlTieSetCertificateReputation
+ * @description Implementation of the `dxl-tie-set-certificate-reputation` node
+ * @private
+ */
+
 'use strict'
 
 var NodeUtils = require('@opendxl/node-red-contrib-dxl').NodeUtils
@@ -5,6 +11,21 @@ var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
 
 module.exports = function (RED) {
+  /**
+   * @classdesc Node which sets the "Enterprise" reputation (`trust level`) of
+   * a specified certificate (as identified by hashes).
+   * @param {Object} nodeConfig - Configuration data which the node uses.
+   * @param {String} nodeConfig.client - Id of the DXL client configuration
+   *   node that this node should be associated with.
+   * @param {Number} [nodeConfig.trustLevel] - New "trust level" for the
+   *   certificate. If the value is empty, the trust level will be retrieved
+   *   from the `msg.trustLevel` property in the input message.
+   * @param {String} [nodeConfig.comment] - Comment to associate with the
+   *   certificate. If the value is empty, the comment will be derived from the
+   *   input message's `msg.comment` property.
+   * @private
+   * @constructor
+   */
   function TieSetFileReputationNode (nodeConfig) {
     RED.nodes.createNode(this, nodeConfig)
 

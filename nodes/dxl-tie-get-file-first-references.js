@@ -1,3 +1,8 @@
+/**
+ * @module DxlTieGetFileFirstReferences
+ * @description Implementation of the `dxl-tie-get-file-first-references` node
+ * @private
+ */
 'use strict'
 
 var nodeRedDxl = require('@opendxl/node-red-contrib-dxl')
@@ -7,6 +12,25 @@ var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
 
 module.exports = function (RED) {
+  /**
+   * @classdesc Node which retrieves the set of systems which have referenced
+   * (typically executed) the specified file (as identified by hashes).
+   * @param {Object} nodeConfig - Configuration data which the node uses.
+   * @param {String} nodeConfig.client - Id of the DXL client configuration
+   *   node that this node should be associated with.
+   * @param {String} [nodeConfig.returnType=obj] - Controls the data type for
+   *   the response payload, set as `msg.payload`. If returnType is 'bin',
+   *   `msg.payload` is a raw binary Buffer. If returnType is 'txt',
+   *   `msg.payload` is a String (decoded as UTF-8). If returnType is 'obj', is
+   *   an Object (decoded as a JSON document from the original payload). If an
+   *   error occurs when attempting to convert the binary Buffer of the payload
+   *   into the desired data type, the current flow is halted with an error.
+   * @param {Number} [nodeConfig.queryLimit] - Maximum number of results to
+   *   return. If the value is empty, the query limit will be derived from the
+   *   input message's `msg.queryLimit` property.
+   * @private
+   * @constructor
+   */
   function TieGetFileFirstReferencesNode (nodeConfig) {
     RED.nodes.createNode(this, nodeConfig)
 
@@ -17,6 +41,11 @@ module.exports = function (RED) {
      */
     this._client = RED.nodes.getNode(nodeConfig.client)
 
+    /**
+     * Controls the data type for the response payload.
+     * @type {String}
+     * @private
+     */
     this._returnType = nodeConfig.returnType || 'obj'
 
     var node = this

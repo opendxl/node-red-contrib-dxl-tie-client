@@ -1,3 +1,10 @@
+/**
+ * @module DxlTieGetCertificateReputation
+ * @description Implementation of the
+ * `dxl-tie-get-certificate-reputation` node
+ * @private
+ */
+
 'use strict'
 
 var nodeRedDxl = require('@opendxl/node-red-contrib-dxl')
@@ -7,6 +14,23 @@ var tieClient = require('@opendxl/dxl-tie-client')
 var TieClient = tieClient.TieClient
 
 module.exports = function (RED) {
+  /**
+   * @classdesc Node which retrieves the reputations for the specified
+   * certificate (as identified by the SHA-1 of the certificate and optionally
+   * the SHA-1 of the certificate's public key).
+   * @param {Object} nodeConfig - Configuration data which the node uses.
+   * @param {String} nodeConfig.client - Id of the DXL client configuration
+   *   node that this node should be associated with.
+   * @param {String} [nodeConfig.returnType=obj] - Controls the data type for
+   *   the response payload, set as `msg.payload`. If returnType is 'bin',
+   *   `msg.payload` is a raw binary Buffer. If returnType is 'txt',
+   *   `msg.payload` is a String (decoded as UTF-8). If returnType is 'obj', is
+   *   an Object (decoded as a JSON document from the original payload). If an
+   *   error occurs when attempting to convert the binary Buffer of the payload
+   *   into the desired data type, the current flow is halted with an error.
+   * @private
+   * @constructor
+   */
   function TieGetCertificateReputationNode (nodeConfig) {
     RED.nodes.createNode(this, nodeConfig)
 
@@ -17,6 +41,11 @@ module.exports = function (RED) {
      */
     this._client = RED.nodes.getNode(nodeConfig.client)
 
+    /**
+     * Controls the data type for the response payload.
+     * @type {String}
+     * @private
+     */
     this._returnType = nodeConfig.returnType || 'obj'
 
     var node = this
