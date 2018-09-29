@@ -45,14 +45,14 @@
     <dl class="message-properties">
         <dt>sha1 <span class="property-type">string</span></dt>
         <dd> The SHA-1 of the certificate.</dd>
-        <dt class="optional">publicKeySha1 <span class="property-type">number</span></dt>
+        <dt class="optional">publicKeySha1 <span class="property-type">string</span></dt>
         <dd> The SHA-1 of the certificate's public key.</dd>
     </dl>
     <h3>Outputs</h3>
     <dl class="message-properties">
         <dt>payload <span class="property-type">string | object | buffer</span></dt>
         <dd> Object where each <code>value</code> is a reputation from a particular reputation provider which is identified by the <code>key</code>.
-        The list of certificate reputation providers can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertProvider" target="_blank">CertProvider documentation</a> in the TIE Python client SDK.
+        The list of certificate reputation providers can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-CertProvider.html" target="_blank">CertProvider documentation</a> in the TIE JavaScript client SDK.
         Through the <code>Return</code> node property, the node can be configured to set the payload type as a UTF-8 String, an Object parsed from a JSON formatted string, or as a binary Buffer.</dd>
     </dl>
     <p>The <code>sha1</code> and <code>publicKeySha1</code> properties are removed, if present, from the output message.</p>
@@ -92,10 +92,10 @@
     }
 }</pre>
     <p>The <code>2</code> key corresponds to a reputation from the "Global Threat Intelligence (GTI)" reputation provider while the <code>4</code> key corresponds to a reputation from the "Enterprise" reputation provider.
-    <p>Each reputation contains a standard set of properties (trust level, creation date, etc.). These properties are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertReputationProp" target="_blank">CertReputationProp documentation</a> in the TIE Python client SDK.</p>
-    <p>Each reputation can also contain a provider-specific set of attributes, as an object. These attributes can be found in the TIE Python client SDK documentation:</p>
+    <p>Each reputation contains a standard set of properties (trust level, creation date, etc.). These properties are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-CertReputationProp.html" target="_blank">CertReputationProp documentation</a> in the TIE JavaScript client SDK.</p>
+    <p>Each reputation can also contain a provider-specific set of attributes, as an object. These attributes can be found in the TIE JavaScript client SDK documentation:</p>
     <ul>
-        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertEnterpriseAttrib" target="_blank">CertEnterpriseAttrib</a> - Attributes associated with the <code>Enterprise</code> reputation provider for certificates</li>
-        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.CertGtiAttrib" target="_blank">CertGtiAttrib</a> - Attributes associated with the <code>Global Threat Intelligence (GTI)</code> reputation provider for certificates</li>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-CertEnterpriseAttrib.html" target="_blank">CertEnterpriseAttrib</a> - Attributes associated with the <code>Enterprise</code> reputation provider for certificates</li>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-CertGtiAttrib.html" target="_blank">CertGtiAttrib</a> - Attributes associated with the <code>Global Threat Intelligence (GTI)</code> reputation provider for certificates</li>
     </ul>
 </script>

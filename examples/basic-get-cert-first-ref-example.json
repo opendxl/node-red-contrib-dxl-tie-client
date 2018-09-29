@@ -1,79 +1,79 @@
 [
     {
-        "id": "52082b1f.b6e884",
+        "id": "57bd456f.096b3c",
         "type": "tab",
         "label": "TIE Get Certificate First References Example",
         "disabled": false,
-        "info": "This sample invokes the TIE DXL service to retrieve the set of systems which\r\nhave referenced a certificate (as identified by hashes). The response to the\r\nTIE request is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see\r\n  [Client Configuration](https://opendxl.github.io/node-red-contrib-dxl/jsdoc/tutorial-configuration.html)).\r\n* A TIE service is available on the DXL fabric.\r\n\r\n### Setup\r\n\r\n* Edit the `Specify cert hashes` node and modify the `Payload` property with the\r\n  hash of the certificate (and, optionally, the associated public key) that you\r\n  want to use for the lookup.\r\n\r\n  For example, if the SHA-1 of the certificate body is\r\n  \"6eae26db8c13182a7947982991b4321732cc3de2\" and the SHA-1 of the associated\r\n  public key is \"3b87a2d6f39770160364b79a152fcc73bae27adf\", you could enter\r\n  the following JSON-formatted document:\r\n  \r\n  ```json \r\n  {\r\n    \"certBodySha1\": \"6eae26db8c13182a7947982991b4321732cc3de2\",\r\n    \"publicKeySha1\": \"3b87a2d6f39770160364b79a152fcc73bae27adf\"\r\n  }\r\n  ```\r\n\r\n  If you only have a SHA-1 for the certificate body but not a SHA-1 for the\r\n  associated public key, you could instead enter the following:\r\n\r\n  ```json \r\n  {\r\n    \"certBodySha1\": \"6eae26db8c13182a7947982991b4321732cc3de2\",\r\n  }\r\n  ```\r\n    \r\n* To deploy the flow, press the `Deploy` button in the upper-right corner of the\r\n  screen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\n  with the word `connected` should appear under the\r\n  `Get first references from TIE` node.\r\n\r\n### Running\r\n\r\nTo exercise the flow, double-click the button on the left side of the\r\n`Specify cert hashes` node.\r\n\r\n### Output\r\n\r\nThe output in the Node-RED `debug` tab should appear similar to the following:\r\n\r\n```\r\n▶ [ object, object]\r\n```\r\n\r\nClick on the right arrow buttons to expand the contents of the object. The\r\ncontent should look similar to the following:\r\n\r\n```\r\n▼ array[2]\r\n ▼ 0: object\r\n     date: 1475873692\r\n     agentGuid: \"{3a6f574a-3e6f-436d-acd4-bcde336b054d}\"\r\n ▼ 1: object\r\n     date: 1478626172\r\n     agentGuid: \"{68125cd6-a5d8-11e6-348e-000c29663178}\"\r\n```\r\n\r\nEach entry in the array is an object containing details about a system that has\r\nreferenced the certificate. The following information is included in each\r\nentry:\r\n\r\n* GUID of the system that referenced the certificate\r\n* Time the system first referenced the certificate\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Specify cert hashes\r\n\r\nThis is an `inject` input node which starts the flow. This node\r\ninjects a new message with a `payload` property which specifies the hash of the\r\ncertificate (and, optionally, the associated public key) to use for the lookup.\r\n\r\n#### Set hash request parameters\r\n\r\nThis is a `change` node which copies the value from the `payload.certBodySha1`\r\nmessage property to the `sha1` property and the value from the\r\n`payload.publicKeySha1` message property to the `publicKeySha1` property.\r\nThe `Get first references from TIE` node uses the `sha1` and `publicKeySha1`\r\nproperties when constructing the parameters for the TIE first references\r\nrequest. \r\n\r\n#### Get first references from TIE\r\n\r\nThis is a `tie get certificate first references` node. This node connects to\r\nthe DXL fabric and sends a DXL `Request` message to the TIE service to lookup\r\nfirst references information.\r\n\r\nThe request message also includes the `sha1` and `publicKeySha1` properties set\r\nby the `Set hash request parameters` node.\r\n\r\nThe `Return` property is set to \"a parsed JSON object\" to indicate that the\r\npayload for the response should be added to the output message as a JavaScript\r\nobject decoded from JSON.\r\n\r\n#### Output first references\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Get first references from TIE` node. The output should\r\ninclude information for the systems that have referenced the certificate."
+        "info": "This sample invokes the TIE DXL service to retrieve the set of systems which\r\nhave referenced a certificate (as identified by hashes). The response to the\r\nTIE request is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see the\r\n  [DXL Configuration Sample](https://github.com/opendxl/node-red-contrib-dxl/wiki/Client-Configuration)).\r\n* A TIE service is available on the DXL fabric.\r\n\r\n### Setup\r\n\r\n* Edit the `Specify hash request parameters` node and modify the `msg.sha1`\r\n  rule with the hash of the certificate and the `msg.publicKeySha1` rule with\r\n  the hash of the public key that you want to use for the lookup. Note that\r\n  the `msg.publicKeySha1` property is optional so this value can be set to an\r\n  empty string or the property may be removed entirely if the public key is\r\n  not known.\r\n\r\n* To deploy the flow, press the `Deploy` button in the upper-right corner of the\r\n  screen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\n  with the word `connected` should appear under the\r\n  `Get first references from TIE` node.\r\n\r\n### Running\r\n\r\nTo exercise the flow, double-click the button on the left side of the\r\n`Start flow` node.\r\n\r\n### Output\r\n\r\nThe output in the Node-RED `debug` tab should appear similar to the following:\r\n\r\n```\r\n▶ [ object, object]\r\n```\r\n\r\nClick on the right arrow buttons to expand the contents of the object. The\r\ncontent should look similar to the following:\r\n\r\n```\r\n▼ array[2]\r\n ▼ 0: object\r\n     date: 1475873692\r\n     agentGuid: \"{3a6f574a-3e6f-436d-acd4-bcde336b054d}\"\r\n ▼ 1: object\r\n     date: 1478626172\r\n     agentGuid: \"{68125cd6-a5d8-11e6-348e-000c29663178}\"\r\n```\r\n\r\nEach entry in the array is an object containing details about a system that has\r\nreferenced the certificate. The following information is included in each\r\nentry:\r\n\r\n* GUID of the system that referenced the certificate\r\n* Time the system first referenced the certificate\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Start flow\r\n\r\nThis is an `inject` input node which starts a new flow.\r\n\r\n#### Set hash request parameters\r\n\r\nThis is a `change` node which sets the hash of the certificate to the\r\n`msg.sha1` property and the hash of the associated public key to the\r\n`msg.publicKeySha1` property. The `Get first references from TIE` node uses the\r\n`sha1` and `publicKeySha1` properties when constructing the parameters for the\r\nTIE first references request. \r\n\r\n#### Get first references from TIE\r\n\r\nThis is a `tie get certificate first references` node. This node connects to\r\nthe DXL fabric and sends a DXL `Request` message to the TIE service to lookup\r\nfirst references information.\r\n\r\nThe request message also includes the `sha1` and `publicKeySha1` properties set\r\nby the `Set hash request parameters` node.\r\n\r\nThe `Return` property is set to \"a parsed JSON object\" to indicate that the\r\npayload for the response should be added to the output message as a JavaScript\r\nobject decoded from JSON.\r\n\r\n#### Output first references\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Get first references from TIE` node. The output should\r\ninclude information for the systems that have referenced the certificate."
     },
     {
-        "id": "e9d8da4e.da51e8",
+        "id": "fb15ff78.6b209",
         "type": "dxl-tie-get-certificate-first-references",
-        "z": "52082b1f.b6e884",
+        "z": "57bd456f.096b3c",
         "name": "Get first references from TIE",
         "client": "",
         "returnType": "obj",
-        "x": 320,
-        "y": 220,
+        "x": 340,
+        "y": 200,
         "wires": [
             [
-                "ea3234fc.2618a8"
+                "d8bf3597.02c458"
             ]
         ]
     },
     {
-        "id": "5b6fae81.69618",
+        "id": "9f0ad1f8.a4518",
         "type": "inject",
-        "z": "52082b1f.b6e884",
-        "name": "Specify cert hashes",
+        "z": "57bd456f.096b3c",
+        "name": "Start flow",
         "topic": "",
-        "payload": "{\"certBodySha1\":\"6eae26db8c13182a7947982991b4321732cc3de2\",\"publicKeySha1\":\"3b87a2d6f39770160364b79a152fcc73bae27adf\"}",
-        "payloadType": "json",
+        "payload": "",
+        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 130,
+        "x": 100,
         "y": 40,
         "wires": [
             [
-                "16c4b516.67491b"
+                "d8c84b39.16fe78"
             ]
         ]
     },
     {
-        "id": "ea3234fc.2618a8",
+        "id": "d8bf3597.02c458",
         "type": "debug",
-        "z": "52082b1f.b6e884",
+        "z": "57bd456f.096b3c",
         "name": "Output first references",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 560,
-        "y": 220,
+        "x": 600,
+        "y": 200,
         "wires": []
     },
     {
-        "id": "16c4b516.67491b",
+        "id": "d8c84b39.16fe78",
         "type": "change",
-        "z": "52082b1f.b6e884",
+        "z": "57bd456f.096b3c",
         "name": "Set hash request parameters",
         "rules": [
             {
                 "t": "set",
                 "p": "sha1",
                 "pt": "msg",
-                "to": "payload.certBodySha1",
-                "tot": "msg"
+                "to": "6eae26db8c13182a7947982991b4321732cc3de2",
+                "tot": "str"
             },
             {
                 "t": "set",
                 "p": "publicKeySha1",
                 "pt": "msg",
-                "to": "payload.publicKeySha1",
-                "tot": "msg"
+                "to": "3b87a2d6f39770160364b79a152fcc73bae27adf",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -85,18 +85,18 @@
         "y": 120,
         "wires": [
             [
-                "e9d8da4e.da51e8"
+                "fb15ff78.6b209"
             ]
         ]
     },
     {
-        "id": "4eda9d46.1590a4",
+        "id": "68630488.c6f59c",
         "type": "comment",
-        "z": "52082b1f.b6e884",
-        "name": "Supply the cert hashes in the 'Specify cert hashes' node",
+        "z": "57bd456f.096b3c",
+        "name": "Supply the cert hashes in the 'Specify hash request parameters' node",
         "info": "",
         "x": 460,
-        "y": 40,
+        "y": 60,
         "wires": []
     }
 ]

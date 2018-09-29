@@ -1,66 +1,66 @@
 [
     {
-        "id": "a5453627.48b848",
+        "id": "edb36936.4917b8",
         "type": "tab",
         "label": "TIE Set File Reputation Example",
         "disabled": false,
-        "info": "This sample invokes the TIE DXL service to set the enterprise-specific\r\n`trust level` of a file (as identified by hashes). The response to the\r\nTIE request is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see\r\n  [Client Configuration](https://opendxl.github.io/node-red-contrib-dxl/jsdoc/tutorial-configuration.html)).\r\n* A TIE service is available on the DXL fabric.\r\n* The DXL client associated with the `Set reputation in TIE` node must have permission to send messages to\r\n  the `/mcafee/service/tie/file/reputation/set` topic, which is part of the\r\n  `TIE Server Set Enterprise Reputation` authorization group.\r\n\r\n  The \r\n  [MAR client authorization documentation](https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html)\r\n  provides an example of authorizing a DXL client to send messages to an\r\n  authorization group. While the example is based on McAfee Active Response\r\n  (MAR), the instructions are the same with the exception of swapping the\r\n  `TIE Server Set Enterprise Reputation` authorization group in place of\r\n  `Active Response Server API`.\r\n\r\n### Setup\r\n\r\n* Edit the `Specify file hashes` node and modify the `Payload` property with the\r\n  hashes of the file that you want to use for set operation.\r\n\r\n  The default hashes used in the JSON-formatted document for this node\r\n  pertain to `notepad.exe`:\r\n\r\n  ```json\r\n  {\r\n    \"md5\": \"f2c7bb8acc97f92e987a2d4087d021b1\",\r\n    \"sha1\": \"7eb0139d2175739b3ccb0d1110067820be6abd29\",\r\n    \"sha256\": \"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"\r\n  }\r\n  ```\r\n\r\n* Edit the `Specify file name` node and modify the `Set` rule for the\r\n  `msg.fileName` property with the file name that you want to associate with\r\n  the hash values. The `fileName` property is optional, but is useful in\r\n  identifying the particular file that is associated with the hashes (especially\r\n  if the file did not previously exist in the TIE repository).\r\n\r\n* To deploy the flow, press the `Deploy` button in the upper-right corner of the\r\n  screen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\n  with the word `connected` should appear under the\r\n  `Set reputation in TIE` node.\r\n\r\n### Running\r\n\r\nTo exercise the flow, double-click the button on the left side of the\r\n`Specify file hashes` node.\r\n\r\n### Output\r\n\r\nIf the set reputation operation succeeds, the following message will be\r\ndisplayed:\r\n\r\n```\r\nSucceeded\r\n```\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Specify file hashes\r\n\r\nThis is an `inject` input node which starts the flow. This node\r\ninjects a new message with a `payload` property which specifies the hashes of\r\nthe file to use for the set operation.\r\n\r\n#### Specify file name\r\n\r\nThis is a `change` node which sets the value of the `fileName` property on the\r\nmessage. The `Set reputation in TIE` node uses the `fileName` property when\r\nconstructing the parameters for the TIE file reputation request. \r\n\r\n#### Set hashes request parameter\r\n\r\nThis is a `change` node which copies the value from the `payload` message\r\nproperty to the `hashes` property. The `Set reputation in TIE` node uses the\r\n`hashes` property when constructing the parameters for the TIE file\r\nreputation request. \r\n\r\n#### Set reputation in TIE\r\n\r\nThis is a `tie set file reputation` node. This node connects to the DXL fabric\r\nand sends a DXL `Request` message to the TIE service to set file reputation\r\ninformation.\r\n\r\nThe request message includes the `hashes` property set by the\r\n`Set hash request parameters` node and the `fileName` property set by the\r\n`Specify file name` node.\r\n\r\nThe `Trust level` property is set to \"Known trusted\" and the\r\n`Comment` property is set to \"Reputation set via OpenDXL\". The `Comment`\r\nproperty can be empty but is useful in identifying the particular file which is\r\nassociated with the hashes (especially if the file did not previously exist in\r\nthe TIE repository).\r\n\r\nIf the set reputation operation succeeds, the string \"Succeeded\" is written to\r\nthe `payload` property in the output message.\r\n\r\n#### Output result\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Set reputation in TIE` node. If the set reputation operation\r\nsucceeded, the text \"Succeeded\" should be displayed."
+        "info": "This sample invokes the TIE DXL service to set the enterprise-specific\r\n`trust level` of a file (as identified by hashes). The response to the\r\nTIE request is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see\r\n  [Client Configuration](https://opendxl.github.io/node-red-contrib-dxl/jsdoc/tutorial-configuration.html)).\r\n* A TIE service is available on the DXL fabric.\r\n* The DXL client associated with the `Set reputation in TIE` node must have permission to send messages to\r\n  the `/mcafee/service/tie/file/reputation/set` topic, which is part of the\r\n  `TIE Server Set Enterprise Reputation` authorization group.\r\n\r\n  The \r\n  [MAR client authorization documentation](https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html)\r\n  provides an example of authorizing a DXL client to send messages to an\r\n  authorization group. While the example is based on McAfee Active Response\r\n  (MAR), the instructions are the same with the exception of swapping the\r\n  `TIE Server Set Enterprise Reputation` authorization group in place of\r\n  `Active Response Server API`.\r\n\r\n### Setup\r\n\r\n* Edit the `Set reputation request parameters` node and modify values of any of\r\n  the available properties, as desired. The only properties which are required\r\n  the `hashes` and `trustLevel`. The `fileName` and/or `comment` can also be\r\n  specified through the web UI for the `Set reputation in TIE` node. Note that\r\n  if values are specified both on the flow message and the Web UI, the value\r\n  specified in the Web UI will be used. The available properties are:\r\n\r\n  * _hashes.md5_, _hashes.sha1_, _hashes.sha256_ - Hashes of the file. The\r\n    default hashes used in the JSON-formatted document for this node pertain to\r\n    `notepad.exe`.\r\n  * _trustLevel_ - New \"trust level\" for the file. The numeric value `99` \r\n    indicates that the file is `Known Trusted`. The list of standard\r\n    \"trust levels\" can be found in the\r\n    [TrustLevel documentation](https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-TrustLevel.html)\r\n    in the TIE JavaScript client SDK.\r\n  * _fileName_ - Name to associate with the file.\r\n  * _comment_ - Comment to associate with the file. This value can be empty but\r\n    is useful in identifying the particular file which is associated with the\r\n    hashes (especially if the file did not previously exist in the TIE\r\n    repository).\r\n\r\n\r\n* To deploy the flow, press the `Deploy` button in the upper-right corner of the\r\n  screen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\n  with the word `connected` should appear under the\r\n  `Set reputation in TIE` node.\r\n\r\n### Running\r\n\r\nTo exercise the flow, double-click the button on the left side of the\r\n`Specify file hashes` node.\r\n\r\n### Output\r\n\r\nIf the set reputation operation succeeds, the following message will be\r\ndisplayed:\r\n\r\n```\r\nSucceeded\r\n```\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Start flow\r\n\r\nThis is an `inject` input node which starts the flow.\r\n\r\n#### Set reputation request parameter\r\n\r\nThis is a `change` node which stores parameters used by the\r\n`Set reputation in TIE` node to the flow message. The available parameters\r\nare the `hashes` of the file, `trustLevel` to be set for the file, `fileName`\r\nto associate with the file, and `comment` to associate with the file.\r\n\r\n#### Set reputation in TIE\r\n\r\nThis is a `tie set file reputation` node. This node connects to the DXL fabric\r\nand sends a DXL `Request` message to the TIE service to set file reputation\r\ninformation.\r\n\r\nThe request message includes the request properties set by the\r\n`Set reputation request parameters` node.\r\n\r\nIf the set reputation operation succeeds, the string \"Succeeded\" is written to\r\nthe `payload` property in the output message.\r\n\r\n#### Output result\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Set reputation in TIE` node. If the set reputation operation\r\nsucceeded, the text \"Succeeded\" should be displayed."
     },
     {
-        "id": "b6d2814d.2847e",
+        "id": "d95c9c2c.6498d",
         "type": "dxl-tie-set-file-reputation",
-        "z": "a5453627.48b848",
+        "z": "edb36936.4917b8",
         "name": "Set reputation in TIE",
         "client": "",
-        "trustLevel": "99",
-        "comment": "Reputation set by OpenDXL",
-        "x": 380,
-        "y": 380,
+        "trustLevel": "",
+        "comment": "",
+        "x": 420,
+        "y": 220,
         "wires": [
             [
-                "585b8da3.da5ce4"
+                "bb360d14.52f57"
             ]
         ]
     },
     {
-        "id": "9eaacf13.ddcb6",
+        "id": "1ef8f0a1.9888ef",
         "type": "inject",
-        "z": "a5453627.48b848",
-        "name": "Specify file hashes",
+        "z": "edb36936.4917b8",
+        "name": "Start flow",
         "topic": "",
-        "payload": "{\"md5\":\"f2c7bb8acc97f92e987a2d4087d021b1\",\"sha1\":\"7eb0139d2175739b3ccb0d1110067820be6abd29\",\"sha256\":\"142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2\"}",
+        "payload": "{}",
         "payloadType": "json",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 130,
-        "y": 80,
+        "x": 100,
+        "y": 40,
         "wires": [
             [
-                "8d33bfe2.1c841"
+                "25e182e3.10cede"
             ]
         ]
     },
     {
-        "id": "585b8da3.da5ce4",
+        "id": "bb360d14.52f57",
         "type": "debug",
-        "z": "a5453627.48b848",
+        "z": "edb36936.4917b8",
         "name": "Output result",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 570,
-        "y": 380,
+        "x": 630,
+        "y": 220,
         "wires": []
     },
     {
-        "id": "af7da3b4.3c35",
+        "id": "25e182e3.10cede",
         "type": "change",
-        "z": "a5453627.48b848",
-        "name": "Set hashes request parameter",
+        "z": "edb36936.4917b8",
+        "name": "Set reputation request parameters",
         "rules": [
             {
                 "t": "set",
@@ -68,52 +68,47 @@
                 "pt": "msg",
                 "to": "payload",
                 "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 310,
-        "y": 280,
-        "wires": [
-            [
-                "b6d2814d.2847e"
-            ]
-        ]
-    },
-    {
-        "id": "2f162b7e.930684",
-        "type": "comment",
-        "z": "a5453627.48b848",
-        "name": "Supply the file hashes in the 'Specify file hashes' node",
-        "info": "",
-        "x": 220,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "ffbb7631.662148",
-        "type": "comment",
-        "z": "a5453627.48b848",
-        "name": "Supply the file name in the 'Set file name' node",
-        "info": "",
-        "x": 420,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "8d33bfe2.1c841",
-        "type": "change",
-        "z": "a5453627.48b848",
-        "name": "Specify file name",
-        "rules": [
+            },
+            {
+                "t": "set",
+                "p": "hashes.md5",
+                "pt": "msg",
+                "to": "f2c7bb8acc97f92e987a2d4087d021b1",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "hashes.sha1",
+                "pt": "msg",
+                "to": "7eb0139d2175739b3ccb0d1110067820be6abd29",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "hashes.sha256",
+                "pt": "msg",
+                "to": "142e1d688ef0568370c37187fd9f2351d7ddeda574f8bfa9b0fa4ef42db85aa2",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "trustLevel",
+                "pt": "msg",
+                "to": "99",
+                "tot": "num"
+            },
             {
                 "t": "set",
                 "p": "fileName",
                 "pt": "msg",
                 "to": "notepad.exe",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "comment",
+                "pt": "msg",
+                "to": "Reputation set by OpenDXL",
                 "tot": "str"
             }
         ],
@@ -122,12 +117,22 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 230,
-        "y": 180,
+        "x": 360,
+        "y": 120,
         "wires": [
             [
-                "af7da3b4.3c35"
+                "d95c9c2c.6498d"
             ]
         ]
+    },
+    {
+        "id": "bf5b2ca2.6c3c7",
+        "type": "comment",
+        "z": "edb36936.4917b8",
+        "name": "Supply the file hashes, file name, trustLevel, and comment in the 'Set request parameters' node",
+        "info": "",
+        "x": 550,
+        "y": 60,
+        "wires": []
     }
 ]

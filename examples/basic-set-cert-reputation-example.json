@@ -1,80 +1,94 @@
 [
     {
-        "id": "d25ff850.471288",
+        "id": "43588515.3b92dc",
         "type": "tab",
         "label": "TIE Set Certificate Reputation Example",
         "disabled": false,
-        "info": "This sample invokes the TIE DXL service to set the enterprise-specific\r\n`trust level` of a certificate (as identified by hashes). The response to the\r\nTIE request is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see\r\n  [Client Configuration](https://opendxl.github.io/node-red-contrib-dxl/jsdoc/tutorial-configuration.html)).\r\n* A TIE service is available on the DXL fabric.\r\n* The DXL client associated with the `Set reputation in TIE` node must have permission to send messages to\r\n  the `/mcafee/service/tie/cert/reputation/set` topic, which is part of the\r\n  `TIE Server Set Enterprise Reputation` authorization group.\r\n\r\n  The \r\n  [MAR client authorization documentation](https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html)\r\n  provides an example of authorizing a DXL client to send messages to an\r\n  authorization group. While the example is based on McAfee Active Response\r\n  (MAR), the instructions are the same with the exception of swapping the\r\n  `TIE Server Set Enterprise Reputation` authorization group in place of\r\n  `Active Response Server API`.\r\n\r\n### Setup\r\n\r\n* Edit the `Specify cert hashes` node and modify the `Payload` property with the\r\n  hash of the certificate (and, optionally, the associated public key) that you\r\n  want to use for the set operation.\r\n\r\n  For example, if the SHA-1 of the certificate body is\r\n  \"6eae26db8c13182a7947982991b4321732cc3de2\" and the SHA-1 of the associated\r\n  public key is \"3b87a2d6f39770160364b79a152fcc73bae27adf\", you could enter\r\n  the following JSON-formatted document:\r\n  \r\n  ```json \r\n  {\r\n    \"certBodySha1\": \"6eae26db8c13182a7947982991b4321732cc3de2\",\r\n    \"publicKeySha1\": \"3b87a2d6f39770160364b79a152fcc73bae27adf\"\r\n  }\r\n  ```\r\n\r\n  If you only have a SHA-1 for the certificate body but not a SHA-1 for the\r\n  associated public key, you could instead enter the following:\r\n\r\n  ```json \r\n  {\r\n    \"certBodySha1\": \"6eae26db8c13182a7947982991b4321732cc3de2\",\r\n  }\r\n  ```\r\n    \r\n* To deploy the flow, press the `Deploy` button in the upper-right corner of the\r\n  screen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\n  with the word `connected` should appear under the\r\n  `Set reputation in TIE` node.\r\n\r\n### Running\r\n\r\nTo exercise the flow, double-click the button on the left side of the\r\n`Specify cert hashes` node.\r\n\r\n### Output\r\n\r\nIf the set reputation operation succeeds, the following message will be\r\ndisplayed:\r\n\r\n```\r\nSucceeded\r\n```\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Specify cert hashes\r\n\r\nThis is an `inject` input node which starts the flow. This node\r\ninjects a new message with a `payload` property which specifies the hash of the\r\ncertificate (and, optionally, the associated public key) to use for the set\r\noperation.\r\n\r\n#### Set hash request parameters\r\n\r\nThis is a `change` node which copies the value from the `payload.certBodySha1`\r\nmessage property to the `sha1` property and the value from the\r\n`payload.publicKeySha1` message property to the `publicKeySha1` property.\r\nThe `Set reputation in TIE` node uses the `sha1` and `publicKeySha1`\r\nproperties when constructing the parameters for the TIE certificate reputation\r\nrequest. \r\n\r\n#### Set reputation in TIE\r\n\r\nThis is a `tie set certificate reputation` node. This node connects to\r\nthe DXL fabric and sends a DXL `Request` message to the TIE service to set\r\ncertificate reputation information.\r\n\r\nThe request message includes the `sha1` and `publicKeySha1` properties set\r\nby the `Set hash request parameters` node.\r\n\r\nThe `Trust level` property is set to \"Known trusted\" and the\r\n`Comment` property is set to \"Reputation set via OpenDXL\". The `Comment`\r\nproperty can be empty but is useful in identifying the particular certificate\r\nwhich is associated with the hashes (especially if the certificate did not\r\npreviously exist in the TIE repository).\r\n\r\nIf the set reputation operation succeeds, the string \"Succeeded\" is written to\r\nthe `payload` property in the output message.\r\n\r\n#### Output result\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Set reputation in TIE` node. If the set reputation operation\r\nsucceeded, the text \"Succeeded\" should be displayed."
+        "info": "This sample invokes the TIE DXL service to set the enterprise-specific\r\n`trust level` of a certificate (as identified by hashes). The response to the\r\nTIE request is printed to the Node-RED `debug` tab.\r\n\r\n### Prerequisites\r\n\r\n* The samples configuration step has been completed (see\r\n  [Client Configuration](https://opendxl.github.io/node-red-contrib-dxl/jsdoc/tutorial-configuration.html)).\r\n* A TIE service is available on the DXL fabric.\r\n* The DXL client associated with the `Set reputation in TIE` node must have\r\n  permission to send messages to the `/mcafee/service/tie/cert/reputation/set`\r\n  topic, which is part of the `TIE Server Set Enterprise Reputation`\r\n  authorization group.\r\n\r\n  The \r\n  [MAR client authorization documentation](https://opendxl.github.io/opendxl-client-python/pydoc/marsendauth.html)\r\n  provides an example of authorizing a DXL client to send messages to an\r\n  authorization group. While the example is based on McAfee Active Response\r\n  (MAR), the instructions are the same with the exception of swapping the\r\n  `TIE Server Set Enterprise Reputation` authorization group in place of\r\n  `Active Response Server API`.\r\n\r\n### Setup\r\n\r\n* Edit the `Set reputation request parameters` node and modify values of any of the\r\n  available properties, as desired. The only properties which are required are\r\n  `sha1` and `trustLevel`. The `publicKeySha1`, `trustLevel`, and/or `comment`\r\n  can also be specified through the web UI for the `Set reputation in TIE` node.\r\n  Note that if values are specified both on the flow message and the Web UI, the\r\n  value specified in the Web UI will be used. The available properties are:\r\n\r\n  * _sha1_ - SHA-1 of the certificate.\r\n  * _publicKeySha1_ - SHA-1 of the certificate's public key.\r\n  * _trustLevel_ - New \"trust level\" for the certificate. The numeric value\r\n    `99` indicates that the certificate is `Known Trusted`. The list of standard\r\n    \"trust levels\" can be found in the\r\n    [TrustLevel documentation](https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-TrustLevel.html)\r\n    in the TIE JavaScript client SDK.\r\n  * _comment_ - Comment to associate with the certificate. This value can be \r\n    empty but is useful in identifying the particular certificate\r\n    which is associated with the hashes (especially if the certificate did not\r\n    previously exist in the TIE repository).\r\n\r\n\r\n* To deploy the flow, press the `Deploy` button in the upper-right corner of the\r\n  screen. If Node-RED is able to properly connect to the DXL fabric, a green dot\r\n  with the word `connected` should appear under the\r\n  `Set reputation in TIE` node.\r\n\r\n### Running\r\n\r\nTo exercise the flow, double-click the button on the left side of the\r\n`Start flow` node.\r\n\r\n### Output\r\n\r\nIf the set reputation operation succeeds, the following message will be\r\ndisplayed:\r\n\r\n```\r\nSucceeded\r\n```\r\n\r\n### Details\r\n\r\nThe flow exercises the nodes below.\r\n\r\n#### Start flow\r\n\r\nThis is an `inject` input node which starts the flow.\r\n\r\n#### Set reputation request parameters\r\n\r\nThis is a `change` node which stores parameters used by the\r\n`Set reputation in TIE` node to the flow message. The available parameters\r\nare the `sha1` of the certificate, `publicKeySha1` of the certificate's\r\npublic key, `trustLevel` to be set for the certificate, and `comment` to\r\nassociate with the certificate.\r\n\r\n#### Set reputation in TIE\r\n\r\nThis is a `tie set certificate reputation` node. This node connects to\r\nthe DXL fabric and sends a DXL `Request` message to the TIE service to set\r\ncertificate reputation information.\r\n\r\nThe request message includes the request properties set by the\r\n`Set reputation request parameters` node.\r\n\r\nIf the set reputation operation succeeds, the string \"Succeeded\" is written to\r\nthe `payload` property in the output message.\r\n\r\n#### Output result\r\n\r\nThis is a `debug` output node. This node outputs the `payload` set on\r\nthe message by the `Set reputation in TIE` node. If the set reputation operation\r\nsucceeded, the text \"Succeeded\" should be displayed."
     },
     {
-        "id": "40a36059.2152f",
+        "id": "657498c0.b8f968",
         "type": "dxl-tie-set-certificate-reputation",
-        "z": "d25ff850.471288",
+        "z": "43588515.3b92dc",
         "name": "Set reputation in TIE",
         "client": "",
-        "trustLevel": "99",
-        "comment": "Reputation set via OpenDXL",
-        "x": 320,
-        "y": 200,
+        "trustLevel": "",
+        "comment": "",
+        "x": 420,
+        "y": 220,
         "wires": [
             [
-                "27d72a8c.60fdc6"
+                "a608cf0e.47408"
             ]
         ]
     },
     {
-        "id": "27d72a8c.60fdc6",
+        "id": "a608cf0e.47408",
         "type": "debug",
-        "z": "d25ff850.471288",
+        "z": "43588515.3b92dc",
         "name": "Output result",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 510,
-        "y": 200,
+        "x": 630,
+        "y": 220,
         "wires": []
     },
     {
-        "id": "60c244e6.02693c",
+        "id": "e1cb9d5a.2b72",
         "type": "inject",
-        "z": "d25ff850.471288",
-        "name": "Specify cert hashes",
+        "z": "43588515.3b92dc",
+        "name": "Start flow",
         "topic": "",
-        "payload": "{\"certBodySha1\":\"6eae26db8c13182a7947982991b4321732cc3de2\",\"publicKeySha1\":\"3b87a2d6f39770160364b79a152fcc73bae27adf\"}",
-        "payloadType": "json",
+        "payload": "",
+        "payloadType": "str",
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 130,
+        "x": 100,
         "y": 40,
         "wires": [
             [
-                "dfa31b29.3666c8"
+                "5d077f47.5a21a"
             ]
         ]
     },
     {
-        "id": "dfa31b29.3666c8",
+        "id": "5d077f47.5a21a",
         "type": "change",
-        "z": "d25ff850.471288",
-        "name": "Set hash request parameters",
+        "z": "43588515.3b92dc",
+        "name": "Set reputation request parameters",
         "rules": [
             {
                 "t": "set",
                 "p": "sha1",
                 "pt": "msg",
-                "to": "payload.certBodySha1",
-                "tot": "msg"
+                "to": "6eae26db8c13182a7947982991b4321732cc3de2",
+                "tot": "str"
             },
             {
                 "t": "set",
                 "p": "publicKeySha1",
                 "pt": "msg",
-                "to": "payload.publicKeySha1",
-                "tot": "msg"
+                "to": "3b87a2d6f39770160364b79a152fcc73bae27adf",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "trustLevel",
+                "pt": "msg",
+                "to": "99",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "comment",
+                "pt": "msg",
+                "to": "Reputation set via OpenDXL",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -82,22 +96,22 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 240,
-        "y": 120,
+        "x": 360,
+        "y": 122,
         "wires": [
             [
-                "40a36059.2152f"
+                "657498c0.b8f968"
             ]
         ]
     },
     {
-        "id": "acf6d288.0cdbc",
+        "id": "eac8ad7.6023d5",
         "type": "comment",
-        "z": "d25ff850.471288",
-        "name": "Supply the cert hashes in the 'Specify cert hashes' node",
+        "z": "43588515.3b92dc",
+        "name": "Supply the cert hashes, trustLevel, and comment in the 'Set reputation request parameters' node",
         "info": "",
-        "x": 460,
-        "y": 40,
+        "x": 550,
+        "y": 60,
         "wires": []
     }
 ]

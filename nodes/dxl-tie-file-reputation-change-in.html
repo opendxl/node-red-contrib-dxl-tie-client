@@ -109,22 +109,22 @@
     },
     "updateTime": 1481219581
 }</pre>
-    <p>The top level property names in the object are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FileRepChangeEventProp" target="_blank">FileRepChangeEventProp documentation</a> in the TIE Python client SDK.</p>
+    <p>The top level property names in the object are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-FileRepChangeEventProp.html" target="_blank">FileRepChangeEventProp documentation</a> in the TIE JavaScript client SDK.</p>
     <p>The reputation change information is separated into 4 distinct sections:</p>
     <h4>Hash Values</h4>
     <p>Keyed in the object by the <code>hashes</code> string.</p>
-    <p>An object of hashes that identify the file whose reputation has changed. The property in the object is the <code>hash type</code> and the <code>value</code> is the hex representation of the hash value. See the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.HashType" target="_blank">HashType documentation</a> in the TIE Python client SDK for the list of hash type constants.</p>
+    <p>An object of hashes that identify the file whose reputation has changed. The property in the object is the <code>hash type</code> and the <code>value</code> is the hex representation of the hash value. See the <a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-HashType.html" target="_blank">HashType documentation</a> in the TIE JavaScript client SDK for the list of hash type constants.</p>
     <h4>New Reputations</h4>
     <p>Keyed in the object by the <code>newReputations</code> string.</p>
     <p>The new reputations for the file whose reputation has changed, as an object.</p>
     <p>The property for each entry in the object corresponds to a particular
-    <code>provider</code> of the associated reputation. The list of file reputation providers can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FileProvider" target="_blank">FileProvider documentation</a> in the TIE Python client SDK.</p>
-    <p>Each reputation contains a standard set of properties (trust level, creation date, etc.). These properties are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FileReputationProp" target="_blank">FileReputationProp documentation</a> in the TIE Python client SDK.</p>
-    <p>Each reputation can also contain a provider-specific set of attributes, as an object. These attributes can be found in the TIE Python client SDK documentation:</p>
+    <code>provider</code> of the associated reputation. The list of file reputation providers can be found in the <a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-FileProvider.html" target="_blank">FileProvider documentation</a> in the TIE JavaScript client SDK.</p>
+    <p>Each reputation contains a standard set of properties (trust level, creation date, etc.). These properties are listed in the <a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-FileReputationProp.html" target="_blank">FileReputationProp documentation</a> in the TIE JavaScript client SDK.</p>
+    <p>Each reputation can also contain a provider-specific set of attributes, as an object. These attributes can be found in the TIE JavaScript client SDK documentation:</p>
     <ul>
-        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FileEnterpriseAttrib" target="_blank">FileEnterpriseAttrib</a> - Attributes associated with the <code>Enterprise</code> reputation provider for files</li>
-        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.FileGtiAttrib" target="_blank">FileGtiAttrib</a> - Attributes associated with the <code>Global Threat Intelligence (GTI)</code> reputation provider for files</li>
-        <li><a href="https://opendxl.github.io/opendxl-tie-client-python/pydoc/dxltieclient.constants.html#dxltieclient.constants.AtdAttrib" target="_blank">AtdAttrib</a> - Attributes associated with the <code>Advanced Threat Defense (ATD)</code> reputation provider</li>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-FileEnterpriseAttrib.html" target="_blank">FileEnterpriseAttrib</a> - Attributes associated with the <code>Enterprise</code> reputation provider for files</li>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-FileGtiAttrib.html" target="_blank">FileGtiAttrib</a> - Attributes associated with the <code>Global Threat Intelligence (GTI)</code> reputation provider for files</li>
+        <li><a href="https://opendxl.github.io/opendxl-tie-client-javascript/jsdoc/module-AtdAttrib.html" target="_blank">AtdAttrib</a> - Attributes associated with the <code>Advanced Threat Defense (ATD)</code> reputation provider</li>
     </ul>
     <h4>Old Reputations</h4>
     <p>Keyed in the object by the <code>oldReputations</code> string.</p>
