@@ -58,3 +58,8 @@ TIE when detections occur on managed systems.
 
 This sample registers with the DXL fabric to receive first instance events from
 TIE when files are encountered for the first time within the local enterprise.
+
+#### Basic Reputation Change Event (basic-reputation-change-event-example)
+
+This sample registers with the DXL fabric to receive reputation change events
+sent by TIE when the reputation of a file or certificate changes.
