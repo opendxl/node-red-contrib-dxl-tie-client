@@ -1,6 +1,6 @@
 # McAfee Threat Intelligence Exchange (TIE) DXL Node-RED Client Nodes
 [![Latest NPM Version](https://img.shields.io/npm/v/@opendxl/node-red-contrib-dxl-tie-client.svg)](https://www.npmjs.com/package/@opendxl/node-red-contrib-dxl-tie-client)
-[![Build Status](https://img.shields.io/travis/opendxl/node-red-contrib-dxl-tie-client/master.svg)](https://travis-ci.org/opendxl/node-red-contrib-dxl-tie-client)
+[![Actions Status](https://github.com/opendxl/node-red-contrib-dxl-tie-client/workflows/Build/badge.svg)](https://github.com/opendxl/node-red-contrib-dxl-tie-client/actions)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
